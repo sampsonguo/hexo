@@ -86,10 +86,18 @@
 <meta property="og:site_name" content="GXP&#39;s Blog">
 <meta property="og:description" content="评估指标评估指标大致分为两种，值评估和序评估。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-10-06T10:21:12.000Z">
+<meta property="og:image" content="https://sampsonguo.github.io/2017/10/06/auc-n-logloss/1.gif">
+<meta property="og:image" content="https://sampsonguo.github.io/2017/10/06/auc-n-logloss/2.png">
+<meta property="og:image" content="https://sampsonguo.github.io/2017/10/06/auc-n-logloss/3.png">
+<meta property="og:image" content="https://sampsonguo.github.io/2017/10/06/auc-n-logloss/4.png">
+<meta property="og:image" content="https://sampsonguo.github.io/2017/10/06/auc-n-logloss/6.png">
+<meta property="og:image" content="https://sampsonguo.github.io/2017/10/06/auc-n-logloss/7.png">
+<meta property="og:image" content="https://sampsonguo.github.io/2017/10/06/auc-n-logloss/9.png">
+<meta property="og:updated_time" content="2017-10-09T14:26:28.361Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="auc_n_logloss">
 <meta name="twitter:description" content="评估指标评估指标大致分为两种，值评估和序评估。">
+<meta name="twitter:image" content="https://sampsonguo.github.io/2017/10/06/auc-n-logloss/1.gif">
 
 
 
@@ -382,13 +390,114 @@
 </ul>
 </li>
 </ul>
-<h3 id="AUC的由来和计算"><a href="#AUC的由来和计算" class="headerlink" title="AUC的由来和计算"></a>AUC的由来和计算</h3><p>auc的一些基础知识，可以参考维基百科的解释:<br>这里需要提到一些常见的错误：</p>
+<h3 id="AUC的由来和计算"><a href="#AUC的由来和计算" class="headerlink" title="AUC的由来和计算"></a>AUC的由来和计算</h3><p>auc的一些基础知识，可以参考维基百科的解释:</p>
+<p><a href="https://en.wikipedia.org/wiki/Receiver_operating_characteristic" target="_blank" rel="external">https://en.wikipedia.org/wiki/Receiver_operating_characteristic</a></p>
+<p>这里需要提到一些常见的错误：</p>
 <ul>
-<li>错误1：auc是一条光滑曲线</li>
-<li>错误2：auc是<h4 id="AUC的计算"><a href="#AUC的计算" class="headerlink" title="AUC的计算"></a>AUC的计算</h4><h4 id="AUC的物理意义"><a href="#AUC的物理意义" class="headerlink" title="AUC的物理意义"></a>AUC的物理意义</h4></li>
-<li>物理意义：auc表示正样本pCTR值大于负样本pCTR值的概率</li>
+<li><p>错误1：auc是一条光滑曲线<br>auc是一条折线，如下图</p>
+<img src="/2017/10/06/auc-n-logloss/1.gif" alt="[1.gif]" title="[1.gif]">
+</li>
+<li><p>错误2：auc是和预估值有关系的<br>auc只和序有关系，和值无关。</p>
+</li>
+<li><p>错误3：求auc需要画出roc曲线<br>auc计算部分，除了画出roc曲线，还可以直接计算：</p>
+<img src="/2017/10/06/auc-n-logloss/2.png" alt="[2.png]" title="[2.png]">
+<p>其中,<br>M为正类样本的数目，N为负类样本的数目<br>rank是用的tiedrank</p>
+</li>
 </ul>
-<h3 id="logloss的由来和计算"><a href="#logloss的由来和计算" class="headerlink" title="logloss的由来和计算"></a>logloss的由来和计算</h3><h3 id="AUC和logloss何时不一致"><a href="#AUC和logloss何时不一致" class="headerlink" title="AUC和logloss何时不一致"></a>AUC和logloss何时不一致</h3><h3 id="定向模式-VS-推荐模式"><a href="#定向模式-VS-推荐模式" class="headerlink" title="定向模式 VS 推荐模式"></a>定向模式 VS 推荐模式</h3><h3 id="线下AUC和线上不一致"><a href="#线下AUC和线上不一致" class="headerlink" title="线下AUC和线上不一致"></a>线下AUC和线上不一致</h3><h3 id="AUC-topk-VS-AUC人数加权"><a href="#AUC-topk-VS-AUC人数加权" class="headerlink" title="AUC@topk VS AUC人数加权"></a>AUC@topk VS AUC人数加权</h3><h4 id="AUC的弊端和AUPR"><a href="#AUC的弊端和AUPR" class="headerlink" title="AUC的弊端和AUPR"></a>AUC的弊端和AUPR</h4>
+<h4 id="AUC的物理意义"><a href="#AUC的物理意义" class="headerlink" title="AUC的物理意义"></a>AUC的物理意义</h4><p>和Wilcoxon-Mann-Witney Test有关，即:<br>auc=“测试任意给一个正类样本和一个负类样本，正类样本的score有多大的概率大于负类样本的score”，也即auc的物理意义。</p>
+<h4 id="AUC的计算"><a href="#AUC的计算" class="headerlink" title="AUC的计算"></a>AUC的计算</h4><ul>
+<li><p>spark</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">// Compute raw scores on the test set</div><div class="line">val predictionAndLabels = test.map &#123; case LabeledPoint(label, features) =&gt;</div><div class="line">  val prediction = model.predict(features)</div><div class="line">  (prediction, label)</div><div class="line">&#125;</div><div class="line"></div><div class="line">// Instantiate metrics object</div><div class="line">val metrics = new BinaryClassificationMetrics(predictionAndLabels)</div><div class="line"></div><div class="line">// AUROC</div><div class="line">val auROC = metrics.areaUnderROC</div><div class="line">println(&quot;Area under ROC = &quot; + auROC)</div></pre></td></tr></table></figure>
+</li>
+<li><p>hivemall</p>
+<img src="/2017/10/06/auc-n-logloss/3.png" alt="[3.png]" title="[3.png]">
+</li>
+<li><p>C语言<br>Ref: <a href="https://github.com/liuzhiqiangruc/dml/blob/master/regr/auc.c" target="_blank" rel="external">https://github.com/liuzhiqiangruc/dml/blob/master/regr/auc.c</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">double auc(int n, double *x, double *y) &#123;</div><div class="line">    if (!y || !x) return 0.0;</div><div class="line">    double *rk = (double*) malloc(sizeof(double) * n);</div><div class="line">    AucP *aucp = (AucP *)malloc(sizeof(AucP) * n);</div><div class="line">    int i, tsum;</div><div class="line">    double rksum, auc;</div><div class="line">    for (i = 0; i &lt; n; ++i) &#123;</div><div class="line">        aucp[i].x = x[i];</div><div class="line">        aucp[i].id = i;</div><div class="line">    &#125;</div><div class="line">    tiedrank(n, aucp, rk);</div><div class="line">    for (rksum = 0., tsum = 0, i = 0; i &lt; n; ++i) &#123;</div><div class="line">        if (y[i] &gt;= 1. - 1e-10) &#123;</div><div class="line">            rksum += rk[i];</div><div class="line">            tsum += 1;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    double mn, pst;</div><div class="line">    mn = (double) (n - tsum);</div><div class="line">    mn *= (double) tsum;</div><div class="line">    pst = (double) tsum;</div><div class="line">    pst *= (double) tsum + 1;</div><div class="line">    auc = (rksum - pst / 2.) / mn;</div><div class="line">    free(rk);</div><div class="line">    free(aucp);</div><div class="line">    return auc;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="AUC的弊端和AUPR"><a href="#AUC的弊端和AUPR" class="headerlink" title="AUC的弊端和AUPR"></a>AUC的弊端和AUPR</h4> <img src="/2017/10/06/auc-n-logloss/4.png" alt="[4.png]" title="[4.png]">
+ <img src="/2017/10/06/auc-n-logloss/6.png" alt="[6.png]" title="[6.png]">
+ <img src="/2017/10/06/auc-n-logloss/7.png" alt="[7.png]" title="[7.png]">
+<h3 id="logloss的由来和计算"><a href="#logloss的由来和计算" class="headerlink" title="logloss的由来和计算"></a>logloss的由来和计算</h3><h4 id="logloss由来"><a href="#logloss由来" class="headerlink" title="logloss由来"></a>logloss由来</h4><p>logloss是根据最大似然推导得到的，可参考：<br><a href="http://www.csuldw.com/2016/03/26/2016-03-26-loss-function/" target="_blank" rel="external">http://www.csuldw.com/2016/03/26/2016-03-26-loss-function/</a></p>
+<p>有些概念需要区分一下</p>
+<ul>
+<li>loss function: 样本粒度的函数，如logloss, hingeloss等。<br>引用一张名图：<img src="/2017/10/06/auc-n-logloss/9.png" alt="[9.png]" title="[9.png]">
+</li>
+</ul>
+<blockquote>
+<p>Plot of various loss functions. Blue is the 0–1 indicator function. Green is the square loss function. Purple is the hinge loss function. Yellow is the logistic loss function. Note that all surrogates give a loss penalty of 1 for yf(x) = 0</p>
+</blockquote>
+<ul>
+<li>cost function: 集合粒度的函数，即 sum of loss.</li>
+</ul>
+<h4 id="logloss计算"><a href="#logloss计算" class="headerlink" title="logloss计算"></a>logloss计算</h4><p>logloss计算需要避免log0的情况，可以参考kaggle中的计算方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">max(min(p,1−10^−15),10^−15)max(min(p,1−10^−15),10^−15).)</div></pre></td></tr></table></figure></p>
+<p>ref: <a href="https://www.kaggle.com/wiki/LogLoss" target="_blank" rel="external">https://www.kaggle.com/wiki/LogLoss</a></p>
+<h3 id="AUC和logloss何时不一致"><a href="#AUC和logloss何时不一致" class="headerlink" title="AUC和logloss何时不一致"></a>AUC和logloss何时不一致</h3><p>在样本不均衡的情况下，AUC和logloss会出现很大的偏差。</p>
+<ol>
+<li><p>logloss低但是AUC也低<br>当负样本过多的时候，人为全部预测为负样本，可以实现低logloss，但是AUC=0.5，并不优秀。</p>
+</li>
+<li><p>AUC高但是logloss也高<br>负样本过多，当位置pCTR顺序不变，AUC不变，pCTR统一扩大到接近1时候，导致logloss会变得非常的高。</p>
+</li>
+</ol>
+<h3 id="定向模式-VS-推荐模式"><a href="#定向模式-VS-推荐模式" class="headerlink" title="定向模式 VS 推荐模式"></a>定向模式 VS 推荐模式</h3><ol>
+<li>PUSH系统：广告为中心，为广告找用户，并push；展示可有可无。</li>
+<li>推荐系统：人为中心，为人找推荐项，并展示；用户来了必须展示。</li>
+</ol>
+<h3 id="线下AUC和线上不一致"><a href="#线下AUC和线上不一致" class="headerlink" title="线下AUC和线上不一致"></a>线下AUC和线上不一致</h3><p>有三种AUC，很多不一致是因为AUC的描述不同造成的<br>假设有user-item-pCTR矩阵，那么可以计算</p>
+<ul>
+<li>横向AUC：每用户AUC，适用于推荐系统</li>
+<li>纵向AUC：每广告AUC，适用于PUSH系统</li>
+<li>全局AUC：统一大模型的AUC</li>
+</ul>
+<p>存在很多种情况：</p>
+<ul>
+<li>纵向AUC高，横向AUC不一定高<br>单广告训练做推荐的典型的问题，举一个例子</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Item1</th>
+<th>Item2</th>
+<th>Item3</th>
+<th>Item4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UserA</td>
+<td>0.7(0)</td>
+<td>0.7(1)</td>
+<td>0.7(1)</td>
+<td>0.7(1)</td>
+</tr>
+<tr>
+<td>UserB</td>
+<td>0.6(0)</td>
+<td>0.6(0)</td>
+<td>0.6(1)</td>
+<td>0.6(1)</td>
+</tr>
+<tr>
+<td>UserC</td>
+<td>0.5(0)</td>
+<td>0.5(0)</td>
+<td>0.5(0)</td>
+<td>0.5(1)</td>
+</tr>
+</tbody>
+</table>
+<p>从纵向来看，每个单Item模型的AUC=1.0，但是横向的AUC=0.5，因此纵向AUC高，并不代表横向AUC高。即：<br>从单广告训练的AUC，集合起来，变成真正用户X过来，对用户X进行广告排序，AUC不一定高。<br>这种不一致是由于基于Item的模型并没有发现用户的对比其他人“更”偏好什么。</p>
+<ul>
+<li>横向AUC高，纵向AUC不一定高<br>上图翻转，同理。</li>
+</ul>
+<h3 id="AUC-topk-VS-AUC人数加权"><a href="#AUC-topk-VS-AUC人数加权" class="headerlink" title="AUC@topk VS AUC人数加权"></a>AUC@topk VS AUC人数加权</h3><p>为了和线上的情况保持一致，最好的方式是：</p>
+<ul>
+<li>用户来了必须展示，因此AUC的计算方式是横向AUC，即每个用户计算AUC，然后加权；</li>
+<li>用户往往只看头部，因此只计算AUC@topk，衡量头部排序能力。</li>
+</ul>
+
       
     </div>
     
@@ -543,7 +652,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#评估指标"><span class="nav-number">1.</span> <span class="nav-text">评估指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#序准-VS-值准"><span class="nav-number">2.</span> <span class="nav-text">序准 VS 值准</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AUC的由来和计算"><span class="nav-number">3.</span> <span class="nav-text">AUC的由来和计算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AUC的计算"><span class="nav-number">3.1.</span> <span class="nav-text">AUC的计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AUC的物理意义"><span class="nav-number">3.2.</span> <span class="nav-text">AUC的物理意义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#logloss的由来和计算"><span class="nav-number">4.</span> <span class="nav-text">logloss的由来和计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AUC和logloss何时不一致"><span class="nav-number">5.</span> <span class="nav-text">AUC和logloss何时不一致</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定向模式-VS-推荐模式"><span class="nav-number">6.</span> <span class="nav-text">定向模式 VS 推荐模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线下AUC和线上不一致"><span class="nav-number">7.</span> <span class="nav-text">线下AUC和线上不一致</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AUC-topk-VS-AUC人数加权"><span class="nav-number">8.</span> <span class="nav-text">AUC@topk VS AUC人数加权</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AUC的弊端和AUPR"><span class="nav-number">8.1.</span> <span class="nav-text">AUC的弊端和AUPR</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#评估指标"><span class="nav-number">1.</span> <span class="nav-text">评估指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#序准-VS-值准"><span class="nav-number">2.</span> <span class="nav-text">序准 VS 值准</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AUC的由来和计算"><span class="nav-number">3.</span> <span class="nav-text">AUC的由来和计算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AUC的物理意义"><span class="nav-number">3.1.</span> <span class="nav-text">AUC的物理意义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AUC的计算"><span class="nav-number">3.2.</span> <span class="nav-text">AUC的计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AUC的弊端和AUPR"><span class="nav-number">3.3.</span> <span class="nav-text">AUC的弊端和AUPR</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#logloss的由来和计算"><span class="nav-number">4.</span> <span class="nav-text">logloss的由来和计算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#logloss由来"><span class="nav-number">4.1.</span> <span class="nav-text">logloss由来</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#logloss计算"><span class="nav-number">4.2.</span> <span class="nav-text">logloss计算</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AUC和logloss何时不一致"><span class="nav-number">5.</span> <span class="nav-text">AUC和logloss何时不一致</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定向模式-VS-推荐模式"><span class="nav-number">6.</span> <span class="nav-text">定向模式 VS 推荐模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线下AUC和线上不一致"><span class="nav-number">7.</span> <span class="nav-text">线下AUC和线上不一致</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AUC-topk-VS-AUC人数加权"><span class="nav-number">8.</span> <span class="nav-text">AUC@topk VS AUC人数加权</span></a></li></ol></div>
             
 
           </div>
