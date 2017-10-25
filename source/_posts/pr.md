@@ -6,5 +6,5 @@ tags:
 
 PR有三个含义，差点儿搞晕了：
 * Public Relation: 公共关系，即公关
-* Peer Review: 同事评估，往往是代码的peer review
+* Peer Review: 同事评估，往往是代码的peer review, 代码的话常常code review(CR)
 * Pull Request: git上initiate discussion about your commits

@@ -19,7 +19,7 @@ logit(x) = log(x/1-x)
 
 * logit和logistic的关系
 logit和logistic互为反函数，如下：
-{% asset_img "logit-logistic-relation.jpg" [logit-logistic-relation] %}
+{% asset_img "logit-logistic-relation.png" [logit-logistic-relation] %}
 
 
 
