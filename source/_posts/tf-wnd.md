@@ -7,7 +7,6 @@ tags:
 #### wide_n_deep code
 
 ```
-
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -54,4 +53,8 @@ for (key, value) in self.column_dict.items():
                 tf.string_split(samples[value], delimiter = ';'),
                 dtype = tf.float32)
 return feature_dict, label
+```
+
+```
+
 ```
