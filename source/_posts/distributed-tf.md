@@ -7,4 +7,3 @@ tags:
 #### basic concepts
 * cluster: a set of tasks, one or more jobs
 * server: master+worker
-*

@@ -79,17 +79,19 @@
 
 
 
-<meta name="description" content="Detect vertical/horizontal edges  CNN kernal below can be used for detecting vertical edges    1 0 -1     1 0 -1   1 0 -1     stride &amp;amp; padding     params values     input volume size W   stride S">
+<meta name="description" content="Detect vertical/horizontal edgesCNN kernal below can be used for detecting vertical edges    1 0 -1     1 0 -1   1 0 -1    stride &amp;amp; padding   params values     input volume size W   stride S   pad">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cnn">
-<meta property="og:url" content="https://sampsonguo.github.io/2017/11/17/cnn/index.html">
+<meta property="og:url" content="https://sampsonguo.github.io/2018/03/14/cnn/index.html">
 <meta property="og:site_name" content="GXP&#39;s Blog">
-<meta property="og:description" content="Detect vertical/horizontal edges  CNN kernal below can be used for detecting vertical edges    1 0 -1     1 0 -1   1 0 -1     stride &amp;amp; padding     params values     input volume size W   stride S">
+<meta property="og:description" content="Detect vertical/horizontal edgesCNN kernal below can be used for detecting vertical edges    1 0 -1     1 0 -1   1 0 -1    stride &amp;amp; padding   params values     input volume size W   stride S   pad">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-11-20T11:48:04.849Z">
+<meta property="og:image" content="https://sampsonguo.github.io/2018/03/14/cnn/cnn002.png">
+<meta property="og:updated_time" content="2018-03-15T14:41:19.179Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="cnn">
-<meta name="twitter:description" content="Detect vertical/horizontal edges  CNN kernal below can be used for detecting vertical edges    1 0 -1     1 0 -1   1 0 -1     stride &amp;amp; padding     params values     input volume size W   stride S">
+<meta name="twitter:description" content="Detect vertical/horizontal edgesCNN kernal below can be used for detecting vertical edges    1 0 -1     1 0 -1   1 0 -1    stride &amp;amp; padding   params values     input volume size W   stride S   pad">
+<meta name="twitter:image" content="https://sampsonguo.github.io/2018/03/14/cnn/cnn002.png">
 
 
 
@@ -119,7 +121,7 @@
 
 
 
-  <link rel="canonical" href="https://sampsonguo.github.io/2017/11/17/cnn/"/>
+  <link rel="canonical" href="https://sampsonguo.github.io/2018/03/14/cnn/"/>
 
 
 
@@ -252,7 +254,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2017/11/17/cnn/">
+    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2018/03/14/cnn/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Guo Xinpeng">
@@ -281,8 +283,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-17T13:51:41+08:00">
-                2017-11-17
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-14T13:51:41+08:00">
+                2018-03-14
               </time>
             
 
@@ -319,10 +321,7 @@
       
 
       
-        <ul>
-<li>Detect vertical/horizontal edges</li>
-</ul>
-<p>CNN kernal below can be used for detecting vertical edges</p>
+        <h4 id="Detect-vertical-horizontal-edges"><a href="#Detect-vertical-horizontal-edges" class="headerlink" title="Detect vertical/horizontal edges"></a>Detect vertical/horizontal edges</h4><p>CNN kernal below can be used for detecting vertical edges</p>
 <table>
 <thead>
 <tr>
@@ -344,10 +343,7 @@
 </tr>
 </tbody>
 </table>
-<ul>
-<li>stride &amp; padding</li>
-</ul>
-<table>
+<h4 id="stride-amp-padding"><a href="#stride-amp-padding" class="headerlink" title="stride &amp; padding"></a>stride &amp; padding</h4><table>
 <thead>
 <tr>
 <th>params</th>
@@ -377,21 +373,28 @@
 </tr>
 </tbody>
 </table>
-<ul>
-<li><p>advantages</p>
-<ul>
+<h4 id="advantages"><a href="#advantages" class="headerlink" title="advantages"></a>advantages</h4><ul>
 <li>parameter sharing</li>
 <li>sparsity of connections</li>
 </ul>
-</li>
-<li><p>xavier_initializer</p>
-<ul>
+<h4 id="xavier-initializer"><a href="#xavier-initializer" class="headerlink" title="xavier_initializer"></a>xavier_initializer</h4><ul>
 <li>uniform distribution: x = sqrt(6. / (in + out)); [-x, x]</li>
 <li>normal distribution: x = sqrt(2. / (in + out)); [-x, x]</li>
 </ul>
+<h4 id="Convolution-Demo"><a href="#Convolution-Demo" class="headerlink" title="Convolution Demo"></a>Convolution Demo</h4><ul>
+<li>W: width = 5</li>
+<li>H: Height = 5</li>
+<li>D: Depth = 3</li>
+<li>K: number of filters = 2</li>
+<li>F: Filter size = 3</li>
+<li>S: Stride = 2</li>
+<li><p>P: Padding = 1</p>
+<img src="/2018/03/14/cnn/cnn002.png" alt="[cnn002.png]" title="[cnn002.png]">
 </li>
 </ul>
-<p>*</p>
+<h4 id="LeNet"><a href="#LeNet" class="headerlink" title="LeNet"></a>LeNet</h4><h4 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h4><h4 id="VGGNet"><a href="#VGGNet" class="headerlink" title="VGGNet"></a>VGGNet</h4><h4 id="GoogleNet"><a href="#GoogleNet" class="headerlink" title="GoogleNet"></a>GoogleNet</h4><h4 id="ResNet"><a href="#ResNet" class="headerlink" title="ResNet"></a>ResNet</h4><h4 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h4><ul>
+<li><a href="http://cs231n.github.io/convolutional-networks/" target="_blank" rel="external">http://cs231n.github.io/convolutional-networks/</a></li>
+</ul>
 
       
     </div>
@@ -416,8 +419,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/28/xgboost-n-spark/" rel="next" title="xgboost-n-spark">
-                <i class="fa fa-chevron-left"></i> xgboost-n-spark
+              <a href="/2018/01/16/bayes/" rel="next" title="bayes">
+                <i class="fa fa-chevron-left"></i> bayes
               </a>
             
           </div>
@@ -425,10 +428,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/11/17/spark-streaming/" rel="prev" title="spark-streaming">
-                spark-streaming <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -478,8 +477,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -494,7 +502,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -541,6 +549,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Detect-vertical-horizontal-edges"><span class="nav-number">1.</span> <span class="nav-text">Detect vertical/horizontal edges</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#stride-amp-padding"><span class="nav-number">2.</span> <span class="nav-text">stride & padding</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#advantages"><span class="nav-number">3.</span> <span class="nav-text">advantages</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xavier-initializer"><span class="nav-number">4.</span> <span class="nav-text">xavier_initializer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Convolution-Demo"><span class="nav-number">5.</span> <span class="nav-text">Convolution Demo</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LeNet"><span class="nav-number">6.</span> <span class="nav-text">LeNet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AlexNet"><span class="nav-number">7.</span> <span class="nav-text">AlexNet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VGGNet"><span class="nav-number">8.</span> <span class="nav-text">VGGNet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GoogleNet"><span class="nav-number">9.</span> <span class="nav-text">GoogleNet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ResNet"><span class="nav-number">10.</span> <span class="nav-text">ResNet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#REF"><span class="nav-number">11.</span> <span class="nav-text">REF</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

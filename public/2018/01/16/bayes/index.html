@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="entropy, information gain, gain ratio">
+<meta name="description" content="Discriminative VS Generative Discriminative models 判别模型直接建模P(c|x) Generative models 生成模型P(c|x) = P(x, c) / P(x) = P(c)*P(x|c)/P(x)其中， P(c)可以通过统计各类样本比例频率来估计 –频率学派 P(x|c)因为样本x的数据量太小，很难估计准确    频率学派 VS 贝叶">
 <meta property="og:type" content="article">
-<meta property="og:title" content="dt">
-<meta property="og:url" content="https://sampsonguo.github.io/2017/12/13/dt/index.html">
+<meta property="og:title" content="bayes">
+<meta property="og:url" content="https://sampsonguo.github.io/2018/01/16/bayes/index.html">
 <meta property="og:site_name" content="GXP&#39;s Blog">
-<meta property="og:description" content="entropy, information gain, gain ratio">
+<meta property="og:description" content="Discriminative VS Generative Discriminative models 判别模型直接建模P(c|x) Generative models 生成模型P(c|x) = P(x, c) / P(x) = P(c)*P(x|c)/P(x)其中， P(c)可以通过统计各类样本比例频率来估计 –频率学派 P(x|c)因为样本x的数据量太小，很难估计准确    频率学派 VS 贝叶">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-12-14T07:10:51.627Z">
+<meta property="og:updated_time" content="2018-03-11T07:07:07.168Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="dt">
-<meta name="twitter:description" content="entropy, information gain, gain ratio">
+<meta name="twitter:title" content="bayes">
+<meta name="twitter:description" content="Discriminative VS Generative Discriminative models 判别模型直接建模P(c|x) Generative models 生成模型P(c|x) = P(x, c) / P(x) = P(c)*P(x|c)/P(x)其中， P(c)可以通过统计各类样本比例频率来估计 –频率学派 P(x|c)因为样本x的数据量太小，很难估计准确    频率学派 VS 贝叶">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://sampsonguo.github.io/2017/12/13/dt/"/>
+  <link rel="canonical" href="https://sampsonguo.github.io/2018/01/16/bayes/"/>
 
 
 
 
 
-  <title>dt | GXP's Blog</title>
+  <title>bayes | GXP's Blog</title>
   
 
 
@@ -252,7 +252,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2017/12/13/dt/">
+    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2018/01/16/bayes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Guo Xinpeng">
@@ -269,7 +269,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">dt</h1>
+          <h1 class="post-title" itemprop="name headline">bayes</h1>
         
 
         <div class="post-meta">
@@ -281,8 +281,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-13T21:45:15+08:00">
-                2017-12-13
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-16T11:26:02+08:00">
+                2018-01-16
               </time>
             
 
@@ -319,7 +319,24 @@
       
 
       
-        <h3 id="entropy-information-gain-gain-ratio"><a href="#entropy-information-gain-gain-ratio" class="headerlink" title="entropy, information gain, gain ratio"></a>entropy, information gain, gain ratio</h3>
+        <h3 id="Discriminative-VS-Generative"><a href="#Discriminative-VS-Generative" class="headerlink" title="Discriminative VS Generative"></a>Discriminative VS Generative</h3><ul>
+<li>Discriminative models 判别模型<br>直接建模P(c|x)</li>
+<li>Generative models 生成模型<br>P(c|x) = P(x, c) / P(x) = P(c)*P(x|c)/P(x)<br>其中，<ul>
+<li>P(c)可以通过统计各类样本比例频率来估计 –频率学派</li>
+<li>P(x|c)因为样本x的数据量太小，很难估计准确</li>
+</ul>
+</li>
+</ul>
+<h3 id="频率学派-VS-贝叶斯学派"><a href="#频率学派-VS-贝叶斯学派" class="headerlink" title="频率学派 VS 贝叶斯学派"></a>频率学派 VS 贝叶斯学派</h3><ul>
+<li>Frequentist 频率学派<br>参数是一个未知但客观存在的固定值</li>
+<li>Bayesian 贝叶斯学派<br>参数本身是一个分布 </li>
+</ul>
+<h3 id="Naive-Bayes"><a href="#Naive-Bayes" class="headerlink" title="Naive Bayes"></a>Naive Bayes</h3><ul>
+<li>属性条件独立性假设（假设每个属性独立地对分类结果发生影响）</li>
+<li>Smoothing: 拉普拉斯修正（Laplacian Correction）</li>
+<li>Lazy Learning</li>
+</ul>
+<h3 id="semi-naive-Bayes-classifier"><a href="#semi-naive-Bayes-classifier" class="headerlink" title="semi-naive Bayes classifier"></a>semi-naive Bayes classifier</h3>
       
     </div>
     
@@ -343,8 +360,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/07/ctr-smooth/" rel="next" title="ctr_smooth">
-                <i class="fa fa-chevron-left"></i> ctr_smooth
+              <a href="/2018/01/15/edge-rank/" rel="next" title="edge-rank">
+                <i class="fa fa-chevron-left"></i> edge-rank
               </a>
             
           </div>
@@ -353,8 +370,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/12/14/distributed-tf/" rel="prev" title="distributed_tf">
-                distributed_tf <i class="fa fa-chevron-right"></i>
+              <a href="/2018/03/14/cnn/" rel="prev" title="cnn">
+                cnn <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -487,7 +504,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#entropy-information-gain-gain-ratio"><span class="nav-number">1.</span> <span class="nav-text">entropy, information gain, gain ratio</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Discriminative-VS-Generative"><span class="nav-number">1.</span> <span class="nav-text">Discriminative VS Generative</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#频率学派-VS-贝叶斯学派"><span class="nav-number">2.</span> <span class="nav-text">频率学派 VS 贝叶斯学派</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Naive-Bayes"><span class="nav-number">3.</span> <span class="nav-text">Naive Bayes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#semi-naive-Bayes-classifier"><span class="nav-number">4.</span> <span class="nav-text">semi-naive Bayes classifier</span></a></li></ol></div>
             
 
           </div>

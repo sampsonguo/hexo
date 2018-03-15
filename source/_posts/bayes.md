@@ -25,4 +25,3 @@ P(c|x) = P(x, c) / P(x) = P(c)*P(x|c)/P(x)
 * Lazy Learning
 
 ### semi-naive Bayes classifier
-
