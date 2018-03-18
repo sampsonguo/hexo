@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ML," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="CTR为什么会不准？在计算广告中，pCTR往往对比真实的CTR偏高或者偏低的现象，尤其在  热门曝光广告和冷门曝光广告之间 高CTR广告和低CTR广告之间  因此，CTR需要校准。">
+<meta name="keywords" content="ML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ctr_recalibration">
+<meta property="og:url" content="https://sampsonguo.github.io/2017/11/23/ctr-recalibration/index.html">
+<meta property="og:site_name" content="GXP&#39;s Blog">
+<meta property="og:description" content="CTR为什么会不准？在计算广告中，pCTR往往对比真实的CTR偏高或者偏低的现象，尤其在  热门曝光广告和冷门曝光广告之间 高CTR广告和低CTR广告之间  因此，CTR需要校准。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://sampsonguo.github.io/2017/11/23/ctr-recalibration/图1.1.png">
+<meta property="og:image" content="https://sampsonguo.github.io/2017/11/23/ctr-recalibration/图2.2.png">
+<meta property="og:image" content="https://sampsonguo.github.io/2017/11/23/ctr-recalibration/图4.4.png">
+<meta property="og:image" content="https://sampsonguo.github.io/2017/11/23/ctr-recalibration/图3.3.png">
+<meta property="og:updated_time" content="2017-11-29T08:13:09.944Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ctr_recalibration">
+<meta name="twitter:description" content="CTR为什么会不准？在计算广告中，pCTR往往对比真实的CTR偏高或者偏低的现象，尤其在  热门曝光广告和冷门曝光广告之间 高CTR广告和低CTR广告之间  因此，CTR需要校准。">
+<meta name="twitter:image" content="https://sampsonguo.github.io/2017/11/23/ctr-recalibration/图1.1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://sampsonguo.github.io/2017/11/23/ctr-recalibration/"/>
+
+
+
+
+
+  <title>ctr_recalibration | GXP's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GXP's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2017/11/23/ctr-recalibration/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Guo Xinpeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GXP's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ctr_recalibration</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-23T20:21:40+08:00">
+                2017-11-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="CTR为什么会不准？"><a href="#CTR为什么会不准？" class="headerlink" title="CTR为什么会不准？"></a>CTR为什么会不准？</h3><p>在计算广告中，pCTR往往对比真实的CTR偏高或者偏低的现象，尤其在</p>
+<ol>
+<li>热门曝光广告和冷门曝光广告之间</li>
+<li>高CTR广告和低CTR广告之间</li>
+</ol>
+<p>因此，CTR需要校准。</p>
+<a id="more"></a>
+<h3 id="CTR为什么要校准？"><a href="#CTR为什么要校准？" class="headerlink" title="CTR为什么要校准？"></a>CTR为什么要校准？</h3><p>AUC体现序准；<br>logloss体现值准；<br>要计算商业价值最大化，因此需要值准；<br>因此需要校准；<br>校准之后，logloss会降低。</p>
+<h3 id="CTR如何校准"><a href="#CTR如何校准" class="headerlink" title="CTR如何校准"></a>CTR如何校准</h3><p>CTR校准有很多方法，本质在于“拟合校准前和校准后”，即<br>f(pCTR校准前) = pCTR校准后<br>如何设计函数f，是校准的关键。</p>
+<h4 id="binning"><a href="#binning" class="headerlink" title="binning"></a>binning</h4><p>binning就是样本等频分桶后，每个bin求平均，如下图：<br> <img src="/2017/11/23/ctr-recalibration/图1.1.png" alt="[图1.1.png]" title="[图1.1.png]"></p>
+<h4 id="Isotonic-regression-保序回归）"><a href="#Isotonic-regression-保序回归）" class="headerlink" title="Isotonic regression(保序回归）"></a>Isotonic regression(保序回归）</h4><p>保序回归，就是单调回归（保证按照自变量x和按照因变量y排序序不变，即成正比）<br>为何要保序？<br>为了保证不影响AUC，即默认原始CTR和校准后CTR的正相关性。<br><img src="/2017/11/23/ctr-recalibration/图2.2.png" alt="[图2.2.png]" title="[图2.2.png]"></p>
+<h3 id="Best-practice"><a href="#Best-practice" class="headerlink" title="Best practice"></a>Best practice</h3><h4 id="分解动作"><a href="#分解动作" class="headerlink" title="分解动作"></a>分解动作</h4><ul>
+<li>将统计ctr加入特征中（最好做离散化处理）</li>
+<li>建立f(pCTR)=统计CTR的函数</li>
+<li>进行将f(pCTR)作为新的CTR<h4 id="小demo"><a href="#小demo" class="headerlink" title="小demo"></a>小demo</h4>假设训练数据集合为：<br>物品3：pCTR<em>统计=0.8<br>物品2：pCTR</em>统计=0.5<br>物品1：pCTR_统计=0.3</li>
+</ul>
+<h5 id="原始LR"><a href="#原始LR" class="headerlink" title="原始LR"></a>原始LR</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line">from sklearn.metrics import log_loss</div><div class="line">from sklearn.linear_model import LogisticRegression</div><div class="line">X = [</div><div class="line">[0.8],</div><div class="line">[0.8],</div><div class="line">[0.8],</div><div class="line">[0.8],</div><div class="line">[0.8],</div><div class="line">[0.8],</div><div class="line">[0.8],</div><div class="line">[0.8],</div><div class="line">[0.8],</div><div class="line">[0.8],</div><div class="line">[0.5],</div><div class="line">[0.5],</div><div class="line">[0.5],</div><div class="line">[0.5],</div><div class="line">[0.5],</div><div class="line">[0.5],</div><div class="line">[0.5],</div><div class="line">[0.5],</div><div class="line">[0.5],</div><div class="line">[0.5],</div><div class="line">[0.3],</div><div class="line">[0.3],</div><div class="line">[0.3],</div><div class="line">[0.3],</div><div class="line">[0.3],</div><div class="line">[0.3],</div><div class="line">[0.3],</div><div class="line">[0.3],</div><div class="line">[0.3],</div><div class="line">[0.3]</div><div class="line">]</div><div class="line">y = [</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">0,</div><div class="line">0,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">0,</div><div class="line">0,</div><div class="line">0,</div><div class="line">0,</div><div class="line">0,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">0,</div><div class="line">0,</div><div class="line">0,</div><div class="line">0,</div><div class="line">0,</div><div class="line">0,</div><div class="line">0]</div><div class="line">LR = LogisticRegression()</div><div class="line">LR.fit(X, y)</div><div class="line">y_p = LR.predict_proba(X)</div><div class="line">score = log_loss(y, y_p)</div></pre></td></tr></table></figure>
+<h5 id="LR-保序回归"><a href="#LR-保序回归" class="headerlink" title="LR+保序回归"></a>LR+保序回归</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line">from sklearn.metrics import log_loss</div><div class="line">from sklearn.linear_model import LogisticRegression</div><div class="line">from sklearn.isotonic import IsotonicRegression</div><div class="line">X = [</div><div class="line">[0.8],</div><div class="line">[0.8],</div><div class="line">[0.8],</div><div class="line">[0.8],</div><div class="line">[0.8],</div><div class="line">[0.8],</div><div class="line">[0.8],</div><div class="line">[0.8],</div><div class="line">[0.8],</div><div class="line">[0.8],</div><div class="line">[0.5],</div><div class="line">[0.5],</div><div class="line">[0.5],</div><div class="line">[0.5],</div><div class="line">[0.5],</div><div class="line">[0.5],</div><div class="line">[0.5],</div><div class="line">[0.5],</div><div class="line">[0.5],</div><div class="line">[0.5],</div><div class="line">[0.3],</div><div class="line">[0.3],</div><div class="line">[0.3],</div><div class="line">[0.3],</div><div class="line">[0.3],</div><div class="line">[0.3],</div><div class="line">[0.3],</div><div class="line">[0.3],</div><div class="line">[0.3],</div><div class="line">[0.3]</div><div class="line">]</div><div class="line">y = [</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">0,</div><div class="line">0,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">0,</div><div class="line">0,</div><div class="line">0,</div><div class="line">0,</div><div class="line">0,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">0,</div><div class="line">0,</div><div class="line">0,</div><div class="line">0,</div><div class="line">0,</div><div class="line">0,</div><div class="line">0]</div><div class="line">LR = LogisticRegression()</div><div class="line">LR.fit(X, y)</div><div class="line">y_lr = LR.predict_proba(X)</div><div class="line">ir = IsotonicRegression()</div><div class="line">y_ir = ir.fit_transform(map(lambda x:x[1], y_lr), map(lambda x:x[0], X))</div><div class="line">score = log_loss(y, y_ir)</div></pre></td></tr></table></figure>
+<h5 id="itemID离散化LR"><a href="#itemID离散化LR" class="headerlink" title="itemID离散化LR"></a>itemID离散化LR</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line">X = [</div><div class="line">[0,0,1],</div><div class="line">[0,0,1],</div><div class="line">[0,0,1],</div><div class="line">[0,0,1],</div><div class="line">[0,0,1],</div><div class="line">[0,0,1],</div><div class="line">[0,0,1],</div><div class="line">[0,0,1],</div><div class="line">[0,0,1],</div><div class="line">[0,0,1],</div><div class="line">[0,1,0],</div><div class="line">[0,1,0],</div><div class="line">[0,1,0],</div><div class="line">[0,1,0],</div><div class="line">[0,1,0],</div><div class="line">[0,1,0],</div><div class="line">[0,1,0],</div><div class="line">[0,1,0],</div><div class="line">[0,1,0],</div><div class="line">[0,1,0],</div><div class="line">[1,0,0],</div><div class="line">[1,0,0],</div><div class="line">[1,0,0],</div><div class="line">[1,0,0],</div><div class="line">[1,0,0],</div><div class="line">[1,0,0],</div><div class="line">[1,0,0],</div><div class="line">[1,0,0],</div><div class="line">[1,0,0],</div><div class="line">[1,0,0],</div><div class="line">]</div><div class="line">y = [</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">0,</div><div class="line">0,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">0,</div><div class="line">0,</div><div class="line">0,</div><div class="line">0,</div><div class="line">0,</div><div class="line">1,</div><div class="line">1,</div><div class="line">1,</div><div class="line">0,</div><div class="line">0,</div><div class="line">0,</div><div class="line">0,</div><div class="line">0,</div><div class="line">0,</div><div class="line">0]</div><div class="line">LR = LogisticRegression()</div><div class="line">LR.fit(X, y)</div><div class="line">y_p = LR.predict_proba(X)</div><div class="line">score = log_loss(y, y_p)</div></pre></td></tr></table></figure>
+<h3 id="采样的校准"><a href="#采样的校准" class="headerlink" title="采样的校准"></a>采样的校准</h3><p>由于负样本抽样后，会造成点击率偏高的假象，需要将预测值还原成真实的值。调整的公式如下：</p>
+<h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><img src="/2017/11/23/ctr-recalibration/图4.4.png" alt="[图4.4.png]" title="[图4.4.png]">
+<h4 id="推导"><a href="#推导" class="headerlink" title="推导"></a>推导</h4><img src="/2017/11/23/ctr-recalibration/图3.3.png" alt="[图3.3.png]" title="[图3.3.png]">
+<p>REF:<br><a href="https://tech.meituan.com/mt_dsp.html" target="_blank" rel="external">https://tech.meituan.com/mt_dsp.html</a><br><a href="http://blog.csdn.net/lming_08/article/details/40214921" target="_blank" rel="external">http://blog.csdn.net/lming_08/article/details/40214921</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ML/" rel="tag"># ML</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/23/exploding-n-vanishing/" rel="next" title="exploding_n_vanishing">
+                <i class="fa fa-chevron-left"></i> exploding_n_vanishing
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/27/MachineLearning-ZhouZhihua/" rel="prev" title="MachineLearning_ZhouZhihua">
+                MachineLearning_ZhouZhihua <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Guo Xinpeng</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CTR为什么会不准？"><span class="nav-number">1.</span> <span class="nav-text">CTR为什么会不准？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CTR为什么要校准？"><span class="nav-number">2.</span> <span class="nav-text">CTR为什么要校准？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CTR如何校准"><span class="nav-number">3.</span> <span class="nav-text">CTR如何校准</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#binning"><span class="nav-number">3.1.</span> <span class="nav-text">binning</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Isotonic-regression-保序回归）"><span class="nav-number">3.2.</span> <span class="nav-text">Isotonic regression(保序回归）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Best-practice"><span class="nav-number">4.</span> <span class="nav-text">Best practice</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分解动作"><span class="nav-number">4.1.</span> <span class="nav-text">分解动作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小demo"><span class="nav-number">4.2.</span> <span class="nav-text">小demo</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#原始LR"><span class="nav-number">4.2.1.</span> <span class="nav-text">原始LR</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#LR-保序回归"><span class="nav-number">4.2.2.</span> <span class="nav-text">LR+保序回归</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#itemID离散化LR"><span class="nav-number">4.2.3.</span> <span class="nav-text">itemID离散化LR</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#采样的校准"><span class="nav-number">5.</span> <span class="nav-text">采样的校准</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#结论"><span class="nav-number">5.1.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#推导"><span class="nav-number">5.2.</span> <span class="nav-text">推导</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guo Xinpeng</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

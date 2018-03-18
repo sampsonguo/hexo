@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="垂直领域搜索APP搜索引擎，属于垂直领域的搜索引擎，相对于泛需求的搜索引擎会简单很多。泛搜索引擎 -&amp;gt; 意图识别（下APP，听歌，找wiki） -&amp;gt; 该意图垂直领域引擎即在垂直领域，不需要挂载意图识别模块。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="search">
+<meta property="og:url" content="https://sampsonguo.github.io/2018/01/08/search/index.html">
+<meta property="og:site_name" content="GXP&#39;s Blog">
+<meta property="og:description" content="垂直领域搜索APP搜索引擎，属于垂直领域的搜索引擎，相对于泛需求的搜索引擎会简单很多。泛搜索引擎 -&amp;gt; 意图识别（下APP，听歌，找wiki） -&amp;gt; 该意图垂直领域引擎即在垂直领域，不需要挂载意图识别模块。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://sampsonguo.github.io/2018/01/08/search/TF.png">
+<meta property="og:image" content="https://sampsonguo.github.io/2018/01/08/search/IDF.png">
+<meta property="og:updated_time" content="2018-01-08T11:57:41.621Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="search">
+<meta name="twitter:description" content="垂直领域搜索APP搜索引擎，属于垂直领域的搜索引擎，相对于泛需求的搜索引擎会简单很多。泛搜索引擎 -&amp;gt; 意图识别（下APP，听歌，找wiki） -&amp;gt; 该意图垂直领域引擎即在垂直领域，不需要挂载意图识别模块。">
+<meta name="twitter:image" content="https://sampsonguo.github.io/2018/01/08/search/TF.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://sampsonguo.github.io/2018/01/08/search/"/>
+
+
+
+
+
+  <title>search | GXP's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GXP's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2018/01/08/search/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Guo Xinpeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GXP's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">search</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-08T16:05:05+08:00">
+                2018-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="垂直领域搜索"><a href="#垂直领域搜索" class="headerlink" title="垂直领域搜索"></a>垂直领域搜索</h3><p>APP搜索引擎，属于垂直领域的搜索引擎，相对于泛需求的搜索引擎会简单很多。<br>泛搜索引擎 -&gt; 意图识别（下APP，听歌，找wiki） -&gt; 该意图垂直领域引擎<br>即在垂直领域，不需要挂载意图识别模块。</p>
+<a id="more"></a>
+<h3 id="相关性-relevance-和重要性-importance"><a href="#相关性-relevance-和重要性-importance" class="headerlink" title="相关性(relevance)和重要性(importance)"></a>相关性(relevance)和重要性(importance)</h3><p>相关性：用户搜索“美”，京东和美团对比，美团的“相关性”更高，所以美团比京东排序高。<br>重要性：用户搜索“美”，美团和美丽说对比，美团的“重要性”更高（美团用户量更大，美丽说小众），所以美团比美丽说的排序高。</p>
+<p>相关性和重要性，是搜索里需要tradeoff的两个指标，这里的tradeoff，往往是建立排序模型。<br>即：相关性召回+重要性召回 -&gt; 排序 </p>
+<h3 id="相关性"><a href="#相关性" class="headerlink" title="相关性"></a>相关性</h3><h4 id="文本相似性"><a href="#文本相似性" class="headerlink" title="文本相似性"></a>文本相似性</h4><ul>
+<li>标题精准匹配（Exact Match）<br>用户搜索“美团”，大概率是对“APP名称的搜索”，因此按照名称精准匹配，最简单最有效。</li>
+<li>标题模糊匹配（Fuzzy Match）<br>用户会打错字，用户会query打不全，因此模糊匹配非常重要。<ul>
+<li>拼音化<br>用户搜索“meituan”，也能够出来“美团”的结果，是因为将app名称进行拼音化再匹配。</li>
+<li>query纠错/改写<br>用户搜索“没团”，也能够出来“美团”的结果，是将query纠错后再匹配。</li>
+<li>编辑距离<br>用户搜索“美”，也能够出来“美团”的结果，是因为“美”和“美团”的编辑距离为1，比较小。<br>【编辑距离ref】：<a href="https://zh.wikipedia.org/wiki/%E7%B7%A8%E8%BC%AF%E8%B7%9D%E9%9B%A2" target="_blank" rel="external">https://zh.wikipedia.org/wiki/%E7%B7%A8%E8%BC%AF%E8%B7%9D%E9%9B%A2</a></li>
+</ul>
+</li>
+<li>内容TF-IDF <ul>
+<li>TF(Term Frequency)<br>query分词后，词语在内容（描述，评论）中出现的次数，可以使0-1值，可以是次数，可以是log（次数）等等任意变种。</li>
+<li>IDF(Inverse Document Frequency)<br>query分词后，词语在query中的重要性，可以是0-1值，可以是log(N/Nt)，可以是log(1+N/Nt)等等任意变种。</li>
+<li>组合<br>IDF将query分词后设置词的权重，TF将词去和文档匹配，TF-IDF就是加权的词和文档的匹配。<br>【TF-IDF ref】<a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf" target="_blank" rel="external">https://en.wikipedia.org/wiki/Tf%E2%80%93idf</a></li>
+</ul>
+</li>
+<li>内容BM25<br>BM25是一种TF-IDF-like retrieval functions，即原理相通。BM25假设有多个词，即sum(每个词的TF-IDF)。<br>公式为：<br>score(D, Q) = sum(TF-IDF) D stands for doc, Q stands for query.</li>
+</ul>
+<p>TF: <img src="/2018/01/08/search/TF.png" alt="[TF]" title="[TF]"></p>
+<ul>
+<li>f(qi, D) is qi’s term frequency in the document D</li>
+<li>|D| is the length of the document D in words</li>
+<li>avgdl is the average document length in the text collection from which documents are drawn.</li>
+<li>k1 and b are free parameters, usually chosen, in absence of an advanced optimization, as k1 in [1.2,2.0] and b = 0.75.</li>
+</ul>
+<p>IDF: <img src="/2018/01/08/search/IDF.png" alt="[IDF]" title="[IDF]"></p>
+<ul>
+<li>N is the total number of documents in the collection</li>
+<li>n(qi) is the number of documents containing qi.</li>
+</ul>
+<p>【BM25 ref】<a href="https://en.wikipedia.org/wiki/Okapi_BM25" target="_blank" rel="external">https://en.wikipedia.org/wiki/Okapi_BM25</a></p>
+<h4 id="语义相似性"><a href="#语义相似性" class="headerlink" title="语义相似性"></a>语义相似性</h4><ul>
+<li>Topic Model<br>  乔布斯的苹果和水果店的苹果，识别语义。建议采用”维基预料训练“，而非query来训练，因为LDA对短文本效果不好。</li>
+<li>类型相关<br>  识别query的类型，比如搜索”聊天“，那就从”聊天软件“类目中召回APP。</li>
+</ul>
+<h3 id="重要性"><a href="#重要性" class="headerlink" title="重要性"></a>重要性</h3><h4 id="属性重要性"><a href="#属性重要性" class="headerlink" title="属性重要性"></a>属性重要性</h4><ul>
+<li>星级/评论挖掘</li>
+<li>曝光量/点击量/下载量/安装量/使用量/注册量/付费量/留存量（率）</li>
+<li>商业化价值</li>
+</ul>
+<h4 id="图重要性"><a href="#图重要性" class="headerlink" title="图重要性"></a>图重要性</h4><ul>
+<li>Page Rank值</li>
+</ul>
+<h4 id="其他召回"><a href="#其他召回" class="headerlink" title="其他召回"></a>其他召回</h4><ul>
+<li>x%用户下载召回</li>
+<li>新品召回</li>
+<li>运营召回</li>
+<li>个性化召回</li>
+</ul>
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><ul>
+<li>点击熵<br>  识别是精准需求（文本相关）还是泛需求（语义相关）的指标，可以用来确定召回比例，也可以用来作为排序特征（此时需要交叉两个召回来源）。</li>
+<li>条件概率 p(ctr|query, user, scene)<br>给某人（对人的个性化），场景（对场景的把控，在机场推荐航班相关，晚饭时间推荐美食相关），query（用户对意图的主动描述）的最优化问题。</li>
+</ul>
+<h3 id="评估（IR-evaluation）"><a href="#评估（IR-evaluation）" class="headerlink" title="评估（IR evaluation）"></a>评估（IR evaluation）</h3><ul>
+<li>MAP: Mean Average Precision，不再赘述。</li>
+<li>nDCG: Normalized Discounted cumulative gain，按照位置加权。</li>
+</ul>
+<p>【IR metrics ref】<a href="http://lixinzhang.github.io/xin-xi-jian-suo-zhong-de-ping-jie-zhi-biao-maphe-ndcg.htmll" target="_blank" rel="external">http://lixinzhang.github.io/xin-xi-jian-suo-zhong-de-ping-jie-zhi-biao-maphe-ndcg.htmll</a><br>【MAP vs NDCG ref】<a href="https://www.youtube.com/watch?v=qm1In7NH8WE" target="_blank" rel="external">https://www.youtube.com/watch?v=qm1In7NH8WE</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/05/tf-wnd/" rel="next" title="tf_wnd">
+                <i class="fa fa-chevron-left"></i> tf_wnd
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/15/edge-rank/" rel="prev" title="edge-rank">
+                edge-rank <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Guo Xinpeng</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#垂直领域搜索"><span class="nav-number">1.</span> <span class="nav-text">垂直领域搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关性-relevance-和重要性-importance"><span class="nav-number">2.</span> <span class="nav-text">相关性(relevance)和重要性(importance)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关性"><span class="nav-number">3.</span> <span class="nav-text">相关性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文本相似性"><span class="nav-number">3.1.</span> <span class="nav-text">文本相似性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#语义相似性"><span class="nav-number">3.2.</span> <span class="nav-text">语义相似性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重要性"><span class="nav-number">4.</span> <span class="nav-text">重要性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#属性重要性"><span class="nav-number">4.1.</span> <span class="nav-text">属性重要性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#图重要性"><span class="nav-number">4.2.</span> <span class="nav-text">图重要性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他召回"><span class="nav-number">4.3.</span> <span class="nav-text">其他召回</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排序"><span class="nav-number">5.</span> <span class="nav-text">排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#评估（IR-evaluation）"><span class="nav-number">6.</span> <span class="nav-text">评估（IR evaluation）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guo Xinpeng</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
