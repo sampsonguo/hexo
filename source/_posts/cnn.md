@@ -42,6 +42,7 @@ output volume size | (W−F+2P)/S+1(W−F+2P)/S+1
 
  {% asset_img "cnn002.png" [cnn002.png] %}
 
+<<<<<<< HEAD
 #### Pooling Demo
 
  {% asset_img "cnn003.png" [cnn003.png] %}
@@ -62,6 +63,11 @@ output volume size | (W−F+2P)/S+1(W−F+2P)/S+1
 
  * Bigger
  * Deeper
+=======
+#### LeNet
+
+#### AlexNet
+>>>>>>> 1be2ebd4ec9a7cfdbd6c6e6d48a5059b0bc4ede5
 
 #### VGGNet
 
