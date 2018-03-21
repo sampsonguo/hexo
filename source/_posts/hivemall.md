@@ -92,3 +92,5 @@ from (
 * git clone https://github.com/sampsonguo/incubator-hivemall.git
 * mvn clean package -Dmaven.test.skip=true
 * create temporary function beta_dist_sample as 'com.sigmoidguo.math.BetaUDF';
+
+#####
