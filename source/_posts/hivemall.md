@@ -38,7 +38,7 @@ select 3 as a, 4 as b
 add jaradd jar hdfs://footstone/data/project/dataming/contentrec/hivemall/hivemall-all-0.5.0-incubating.jar;
 source define-all.hive;
 ```
-* setting queue: set mapred.job.queue.name=root.dataming.dev
+* setting queue: set mapred.job.queue.name=root.dataming.dev;
 * set hive nonstrict mode: set hive.mapred.mode=nonstrict;
 
 ##### AUC calc
@@ -93,4 +93,7 @@ from (
 * mvn clean package -Dmaven.test.skip=true
 * create temporary function beta_dist_sample as 'com.sigmoidguo.math.BetaUDF';
 
-#####
+##### Hive & Json
+hive解析json:
+* json_split: brickhouse split array
+* get_json_object: hive udf

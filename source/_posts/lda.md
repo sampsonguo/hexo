@@ -13,37 +13,37 @@ categories: 数据挖掘
 
 * **思路**
   * 将word映射到topic维度<br>
-  {% asset_img "图片1.png" [图片1] %}
+  {% asset_img "1.png" [图片1] %}
   * 概率表示<br>
-  {% asset_img "图片2.png" [图片2] %}
+  {% asset_img "2.png" [图片2] %}
   * 概率表示<br>
-  {% asset_img "图片3.png" [图片3] %}
+  {% asset_img "3.png" [图片3] %}
 * **演进：Unigram Model**<br>
-  {% asset_img "图片4.png" [图片4] %}
+  {% asset_img "4.png" [图片4] %}
 * **演进：Bayes Unigram Model**<br>
-  {% asset_img "图片5.png" [图片5] %}
+  {% asset_img "5.png" [图片5] %}
 * **演进：PLSA**<br>
-  {% asset_img "图片6.png" [图片6] %}
-  {% asset_img "图片7.png" [图片7] %}
+  {% asset_img "6.png" [图片6] %}
+  {% asset_img "7.png" [图片7] %}
 * **演进：LDA**<br>
-  {% asset_img "图片8.png" [图片8] %}
-  {% asset_img "图片9.png" [图片9] %}
+  {% asset_img "8.png" [图片8] %}
+  {% asset_img "9.png" [图片9] %}
 * **参数估计：统计**<br>
-  {% asset_img "图片100.png" [图片9] %}
+  {% asset_img "100.png" [图片9] %}
 * **参数估计：似然**<br>
-  {% asset_img "图片101.png" [图片9] %}
+  {% asset_img "101.png" [图片9] %}
 * **参数估计：后验**<br>
-  {% asset_img "图片102.png" [图片9] %}
+  {% asset_img "102.png" [图片9] %}
 * **参数估计：贝叶斯**<br>
-  {% asset_img "图片103.png" [图片9] %}
+  {% asset_img "103.png" [图片9] %}
 * **参数估计：对比**<br>
-  {% asset_img "图片104.png" [图片9] %}
+  {% asset_img "104.png" [图片9] %}
 * **马尔可夫链条**<br>
-  {% asset_img "图片105.png" [图片9] %}
+  {% asset_img "105.png" [图片9] %}
 * **吉布斯采样**<br>
-  {% asset_img "图片106.png" [图片9] %}
+  {% asset_img "106.png" [图片9] %}
 * **实现代码**<br>
-  {% asset_img "图片201.png" [图片9] %}
+  {% asset_img "201.png" [图片9] %}
 * **Ref:**<br>
   * Parameter estimation for text analysis （http://www.arbylon.net/publications/text-est.pdf）
   * LDA数学八卦
