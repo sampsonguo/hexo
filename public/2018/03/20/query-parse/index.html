@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="Discriminative VS Generative Discriminative models 判别模型直接建模P(c|x) Generative models 生成模型P(c|x) = P(x, c) / P(x) = P(c)*P(x|c)/P(x)其中， P(c)可以通过统计各类样本比例频率来估计 –频率学派 P(x|c)因为样本x的数据量太小，很难估计准确    频率学派 VS 贝叶">
+<meta name="description" content="引流产品 暗文 热词 下拉词 QueryParse Understanding Rewrite   相关搜索 业务相关 大促销(11.11)   算法 引入KPI因子（客单价，客单数） 语义分析（送给爸爸的礼物） 序列识别 主题聚类（育儿场景） 个性化（性别，类目，历史词）   数据 归一化（命名实体识别） 数据清洗（反作弊） 违禁词（菜刀） 不完整词（阿迪达） 季节词（茶叶，季节词提权重） 纠错">
 <meta property="og:type" content="article">
-<meta property="og:title" content="bayes">
-<meta property="og:url" content="https://sampsonguo.github.io/2018/01/16/bayes/index.html">
+<meta property="og:title" content="query_parse">
+<meta property="og:url" content="https://sampsonguo.github.io/2018/03/20/query-parse/index.html">
 <meta property="og:site_name" content="GXP&#39;s Blog">
-<meta property="og:description" content="Discriminative VS Generative Discriminative models 判别模型直接建模P(c|x) Generative models 生成模型P(c|x) = P(x, c) / P(x) = P(c)*P(x|c)/P(x)其中， P(c)可以通过统计各类样本比例频率来估计 –频率学派 P(x|c)因为样本x的数据量太小，很难估计准确    频率学派 VS 贝叶">
+<meta property="og:description" content="引流产品 暗文 热词 下拉词 QueryParse Understanding Rewrite   相关搜索 业务相关 大促销(11.11)   算法 引入KPI因子（客单价，客单数） 语义分析（送给爸爸的礼物） 序列识别 主题聚类（育儿场景） 个性化（性别，类目，历史词）   数据 归一化（命名实体识别） 数据清洗（反作弊） 违禁词（菜刀） 不完整词（阿迪达） 季节词（茶叶，季节词提权重） 纠错">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-03-11T07:07:07.168Z">
+<meta property="og:updated_time" content="2018-03-21T02:28:15.581Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="bayes">
-<meta name="twitter:description" content="Discriminative VS Generative Discriminative models 判别模型直接建模P(c|x) Generative models 生成模型P(c|x) = P(x, c) / P(x) = P(c)*P(x|c)/P(x)其中， P(c)可以通过统计各类样本比例频率来估计 –频率学派 P(x|c)因为样本x的数据量太小，很难估计准确    频率学派 VS 贝叶">
+<meta name="twitter:title" content="query_parse">
+<meta name="twitter:description" content="引流产品 暗文 热词 下拉词 QueryParse Understanding Rewrite   相关搜索 业务相关 大促销(11.11)   算法 引入KPI因子（客单价，客单数） 语义分析（送给爸爸的礼物） 序列识别 主题聚类（育儿场景） 个性化（性别，类目，历史词）   数据 归一化（命名实体识别） 数据清洗（反作弊） 违禁词（菜刀） 不完整词（阿迪达） 季节词（茶叶，季节词提权重） 纠错">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://sampsonguo.github.io/2018/01/16/bayes/"/>
+  <link rel="canonical" href="https://sampsonguo.github.io/2018/03/20/query-parse/"/>
 
 
 
 
 
-  <title>bayes | GXP's Blog</title>
+  <title>query_parse | GXP's Blog</title>
   
 
 
@@ -252,7 +252,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2018/01/16/bayes/">
+    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2018/03/20/query-parse/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Guo Xinpeng">
@@ -269,7 +269,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">bayes</h1>
+          <h1 class="post-title" itemprop="name headline">query_parse</h1>
         
 
         <div class="post-meta">
@@ -281,8 +281,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-16T11:26:02+08:00">
-                2018-01-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-20T20:02:29+08:00">
+                2018-03-20
               </time>
             
 
@@ -319,24 +319,48 @@
       
 
       
-        <h3 id="Discriminative-VS-Generative"><a href="#Discriminative-VS-Generative" class="headerlink" title="Discriminative VS Generative"></a>Discriminative VS Generative</h3><ul>
-<li>Discriminative models 判别模型<br>直接建模P(c|x)</li>
-<li>Generative models 生成模型<br>P(c|x) = P(x, c) / P(x) = P(c)*P(x|c)/P(x)<br>其中，<ul>
-<li>P(c)可以通过统计各类样本比例频率来估计 –频率学派</li>
-<li>P(x|c)因为样本x的数据量太小，很难估计准确</li>
+        <h4 id="引流产品"><a href="#引流产品" class="headerlink" title="引流产品"></a>引流产品</h4><ul>
+<li>暗文</li>
+<li>热词</li>
+<li>下拉词</li>
+<li>QueryParse<ul>
+<li>Understanding</li>
+<li>Rewrite</li>
+</ul>
+</li>
+<li>相关搜索</li>
+<li>业务相关<ul>
+<li>大促销(11.11)</li>
+</ul>
+</li>
+<li>算法<ul>
+<li>引入KPI因子（客单价，客单数）</li>
+<li>语义分析（送给爸爸的礼物）</li>
+<li>序列识别</li>
+<li>主题聚类（育儿场景）</li>
+<li>个性化（性别，类目，历史词）</li>
+</ul>
+</li>
+<li>数据<ul>
+<li>归一化（命名实体识别）</li>
+<li>数据清洗（反作弊）</li>
+<li>违禁词（菜刀）</li>
+<li>不完整词（阿迪达）</li>
+<li>季节词（茶叶，季节词提权重）</li>
+<li>纠错</li>
+</ul>
+</li>
+<li>基础 <ul>
+<li>ABTest分流</li>
 </ul>
 </li>
 </ul>
-<h3 id="频率学派-VS-贝叶斯学派"><a href="#频率学派-VS-贝叶斯学派" class="headerlink" title="频率学派 VS 贝叶斯学派"></a>频率学派 VS 贝叶斯学派</h3><ul>
-<li>Frequentist 频率学派<br>参数是一个未知但客观存在的固定值</li>
-<li>Bayesian 贝叶斯学派<br>参数本身是一个分布 </li>
+<h4 id="基础数据"><a href="#基础数据" class="headerlink" title="基础数据"></a>基础数据</h4><ul>
+<li><h4 id="QueryParse"><a href="#QueryParse" class="headerlink" title="QueryParse"></a>QueryParse</h4></li>
+<li>QP Server<br>*</li>
 </ul>
-<h3 id="Naive-Bayes"><a href="#Naive-Bayes" class="headerlink" title="Naive Bayes"></a>Naive Bayes</h3><ul>
-<li>属性条件独立性假设（假设每个属性独立地对分类结果发生影响）</li>
-<li>Smoothing: 拉普拉斯修正（Laplacian Correction）</li>
-<li>Lazy Learning</li>
-</ul>
-<h3 id="semi-naive-Bayes-classifier"><a href="#semi-naive-Bayes-classifier" class="headerlink" title="semi-naive Bayes classifier"></a>semi-naive Bayes classifier</h3>
+<h4 id="下拉-amp-相关搜索"><a href="#下拉-amp-相关搜索" class="headerlink" title="下拉&amp;相关搜索"></a>下拉&amp;相关搜索</h4><p>8 </p>
+
       
     </div>
     
@@ -360,8 +384,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/15/edge-rank/" rel="next" title="edge-rank">
-                <i class="fa fa-chevron-left"></i> edge-rank
+              <a href="/2018/03/19/hivemall/" rel="next" title="hivemall">
+                <i class="fa fa-chevron-left"></i> hivemall
               </a>
             
           </div>
@@ -369,10 +393,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/14/cnn/" rel="prev" title="cnn">
-                cnn <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -504,7 +524,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Discriminative-VS-Generative"><span class="nav-number">1.</span> <span class="nav-text">Discriminative VS Generative</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#频率学派-VS-贝叶斯学派"><span class="nav-number">2.</span> <span class="nav-text">频率学派 VS 贝叶斯学派</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Naive-Bayes"><span class="nav-number">3.</span> <span class="nav-text">Naive Bayes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#semi-naive-Bayes-classifier"><span class="nav-number">4.</span> <span class="nav-text">semi-naive Bayes classifier</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#引流产品"><span class="nav-number">1.</span> <span class="nav-text">引流产品</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基础数据"><span class="nav-number">2.</span> <span class="nav-text">基础数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#QueryParse"><span class="nav-number">3.</span> <span class="nav-text">QueryParse</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下拉-amp-相关搜索"><span class="nav-number">4.</span> <span class="nav-text">下拉&相关搜索</span></a></li></ol></div>
             
 
           </div>

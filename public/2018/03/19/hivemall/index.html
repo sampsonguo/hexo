@@ -79,17 +79,19 @@
 
 
 
-<meta name="description" content="Discriminative VS Generative Discriminative models 判别模型直接建模P(c|x) Generative models 生成模型P(c|x) = P(x, c) / P(x) = P(c)*P(x|c)/P(x)其中， P(c)可以通过统计各类样本比例频率来估计 –频率学派 P(x|c)因为样本x的数据量太小，很难估计准确    频率学派 VS 贝叶">
+<meta name="description" content="Hivemall是什么 apache主页：http://hivemall.incubator.apache.org/index.html 包含: regression, classification, recommendation, anomaly detection, k-nearest neighbor, and feature engineering 包含ML: Soft Confidenc">
 <meta property="og:type" content="article">
-<meta property="og:title" content="bayes">
-<meta property="og:url" content="https://sampsonguo.github.io/2018/01/16/bayes/index.html">
+<meta property="og:title" content="hivemall">
+<meta property="og:url" content="https://sampsonguo.github.io/2018/03/19/hivemall/index.html">
 <meta property="og:site_name" content="GXP&#39;s Blog">
-<meta property="og:description" content="Discriminative VS Generative Discriminative models 判别模型直接建模P(c|x) Generative models 生成模型P(c|x) = P(x, c) / P(x) = P(c)*P(x|c)/P(x)其中， P(c)可以通过统计各类样本比例频率来估计 –频率学派 P(x|c)因为样本x的数据量太小，很难估计准确    频率学派 VS 贝叶">
+<meta property="og:description" content="Hivemall是什么 apache主页：http://hivemall.incubator.apache.org/index.html 包含: regression, classification, recommendation, anomaly detection, k-nearest neighbor, and feature engineering 包含ML: Soft Confidenc">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-03-11T07:07:07.168Z">
+<meta property="og:image" content="https://sampsonguo.github.io/2018/03/19/hivemall/hivemall_1.PNG">
+<meta property="og:updated_time" content="2018-03-22T07:36:18.054Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="bayes">
-<meta name="twitter:description" content="Discriminative VS Generative Discriminative models 判别模型直接建模P(c|x) Generative models 生成模型P(c|x) = P(x, c) / P(x) = P(c)*P(x|c)/P(x)其中， P(c)可以通过统计各类样本比例频率来估计 –频率学派 P(x|c)因为样本x的数据量太小，很难估计准确    频率学派 VS 贝叶">
+<meta name="twitter:title" content="hivemall">
+<meta name="twitter:description" content="Hivemall是什么 apache主页：http://hivemall.incubator.apache.org/index.html 包含: regression, classification, recommendation, anomaly detection, k-nearest neighbor, and feature engineering 包含ML: Soft Confidenc">
+<meta name="twitter:image" content="https://sampsonguo.github.io/2018/03/19/hivemall/hivemall_1.PNG">
 
 
 
@@ -119,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="https://sampsonguo.github.io/2018/01/16/bayes/"/>
+  <link rel="canonical" href="https://sampsonguo.github.io/2018/03/19/hivemall/"/>
 
 
 
 
 
-  <title>bayes | GXP's Blog</title>
+  <title>hivemall | GXP's Blog</title>
   
 
 
@@ -252,7 +254,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2018/01/16/bayes/">
+    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2018/03/19/hivemall/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Guo Xinpeng">
@@ -269,7 +271,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">bayes</h1>
+          <h1 class="post-title" itemprop="name headline">hivemall</h1>
         
 
         <div class="post-meta">
@@ -281,8 +283,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-16T11:26:02+08:00">
-                2018-01-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-19T10:57:35+08:00">
+                2018-03-19
               </time>
             
 
@@ -319,24 +321,50 @@
       
 
       
-        <h3 id="Discriminative-VS-Generative"><a href="#Discriminative-VS-Generative" class="headerlink" title="Discriminative VS Generative"></a>Discriminative VS Generative</h3><ul>
-<li>Discriminative models 判别模型<br>直接建模P(c|x)</li>
-<li>Generative models 生成模型<br>P(c|x) = P(x, c) / P(x) = P(c)*P(x|c)/P(x)<br>其中，<ul>
-<li>P(c)可以通过统计各类样本比例频率来估计 –频率学派</li>
-<li>P(x|c)因为样本x的数据量太小，很难估计准确</li>
-</ul>
+        <h5 id="Hivemall是什么"><a href="#Hivemall是什么" class="headerlink" title="Hivemall是什么"></a>Hivemall是什么</h5><ul>
+<li>apache主页：<a href="http://hivemall.incubator.apache.org/index.html" target="_blank" rel="external">http://hivemall.incubator.apache.org/index.html</a></li>
+<li>包含: regression, classification, recommendation, anomaly detection, k-nearest neighbor, and feature engineering</li>
+<li>包含ML: Soft Confidence Weighted, Adaptive Regularization of Weight Vectors, Factorization Machines, and AdaDelta</li>
+<li>Support: Hive, Spark, Pig</li>
+<li>Architecture<img src="/2018/03/19/hivemall/hivemall_1.PNG" alt="[hivemall_architecture]" title="[hivemall_architecture]">
 </li>
 </ul>
-<h3 id="频率学派-VS-贝叶斯学派"><a href="#频率学派-VS-贝叶斯学派" class="headerlink" title="频率学派 VS 贝叶斯学派"></a>频率学派 VS 贝叶斯学派</h3><ul>
-<li>Frequentist 频率学派<br>参数是一个未知但客观存在的固定值</li>
-<li>Bayesian 贝叶斯学派<br>参数本身是一个分布 </li>
+<h5 id="Hive-on-Spark-VS-Hive-on-MR"><a href="#Hive-on-Spark-VS-Hive-on-MR" class="headerlink" title="Hive on Spark VS Hive on MR"></a>Hive on Spark VS Hive on MR</h5><ul>
+<li>configure: set hive.execution.engine=spark;</li>
+<li>tutorial: <a href="https://cwiki.apache.org/confluence/display/Hive/Hive+on+Spark%3A+Getting+Started" target="_blank" rel="external">https://cwiki.apache.org/confluence/display/Hive/Hive+on+Spark%3A+Getting+Started</a></li>
+<li>测试:<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">select max(a) as a, max(b) as b</div><div class="line">from</div><div class="line">(</div><div class="line">select 1 as a, 2 as b</div><div class="line">union all</div><div class="line">select 2 as a, 3 as b</div><div class="line">union all</div><div class="line">select 3 as a, 4 as b</div><div class="line">) t</div></pre></td></tr></table></figure>
+</li>
 </ul>
-<h3 id="Naive-Bayes"><a href="#Naive-Bayes" class="headerlink" title="Naive Bayes"></a>Naive Bayes</h3><ul>
-<li>属性条件独立性假设（假设每个属性独立地对分类结果发生影响）</li>
-<li>Smoothing: 拉普拉斯修正（Laplacian Correction）</li>
-<li>Lazy Learning</li>
+<h5 id="Hive-on-Spark-with-Hivemall"><a href="#Hive-on-Spark-with-Hivemall" class="headerlink" title="Hive on Spark with Hivemall"></a>Hive on Spark with Hivemall</h5><ul>
+<li>hive check version: hive –version</li>
+<li>download Hivemall: <a href="https://hivemall.incubator.apache.org/download.html" target="_blank" rel="external">https://hivemall.incubator.apache.org/download.html</a></li>
+<li>UDF define: <a href="https://github.com/apache/incubator-hivemall/blob/master/resources/ddl/define-all.hive" target="_blank" rel="external">https://github.com/apache/incubator-hivemall/blob/master/resources/ddl/define-all.hive</a></li>
+<li><p>add jar</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">add jaradd jar hdfs://footstone/data/project/dataming/contentrec/hivemall/hivemall-all-0.5.0-incubating.jar;</div><div class="line">source define-all.hive;</div></pre></td></tr></table></figure>
+</li>
+<li><p>setting queue: set mapred.job.queue.name=root.dataming.dev;</p>
+</li>
+<li>set hive nonstrict mode: set hive.mapred.mode=nonstrict;</li>
 </ul>
-<h3 id="semi-naive-Bayes-classifier"><a href="#semi-naive-Bayes-classifier" class="headerlink" title="semi-naive Bayes classifier"></a>semi-naive Bayes classifier</h3>
+<h5 id="AUC-calc"><a href="#AUC-calc" class="headerlink" title="AUC calc"></a>AUC calc</h5><ul>
+<li><p>Single node</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">with data as (</div><div class="line">  select 0.5 as prob, 0 as label</div><div class="line">  union all</div><div class="line">  select 0.3 as prob, 1 as label</div><div class="line">  union all</div><div class="line">  select 0.2 as prob, 0 as label</div><div class="line">  union all</div><div class="line">  select 0.8 as prob, 1 as label</div><div class="line">  union all</div><div class="line">  select 0.7 as prob, 1 as label</div><div class="line">)</div><div class="line">select</div><div class="line">  auc(prob, label) as auc</div><div class="line">from (</div><div class="line">  select prob, label</div><div class="line">  from data</div><div class="line">  ORDER BY prob DESC</div><div class="line">) t;</div></pre></td></tr></table></figure>
+</li>
+<li><p>Parallel approximate</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">with data as (</div><div class="line">  select 0.5 as prob, 0 as label</div><div class="line">  union all</div><div class="line">  select 0.3 as prob, 1 as label</div><div class="line">  union all</div><div class="line">  select 0.2 as prob, 0 as label</div><div class="line">  union all</div><div class="line">  select 0.8 as prob, 1 as label</div><div class="line">  union all</div><div class="line">  select 0.7 as prob, 1 as label</div><div class="line">)</div><div class="line">select</div><div class="line">  auc(prob, label) as auc</div><div class="line">from (</div><div class="line">  select prob, label</div><div class="line">  from data</div><div class="line">  DISTRIBUTE BY floor(prob / 0.2)</div><div class="line">  SORT BY prob DESC</div><div class="line">) t;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="Compile-from-source"><a href="#Compile-from-source" class="headerlink" title="Compile from source"></a>Compile from source</h5><ul>
+<li>git clone <a href="https://github.com/sampsonguo/incubator-hivemall.git" target="_blank" rel="external">https://github.com/sampsonguo/incubator-hivemall.git</a></li>
+<li>mvn clean package -Dmaven.test.skip=true</li>
+<li>create temporary function beta_dist_sample as ‘com.sigmoidguo.math.BetaUDF’;</li>
+</ul>
+<h5 id="Hive-amp-Json"><a href="#Hive-amp-Json" class="headerlink" title="Hive &amp; Json"></a>Hive &amp; Json</h5><p>hive解析json:</p>
+<ul>
+<li>json_split: brickhouse split array</li>
+<li>get_json_object: hive udf</li>
+</ul>
+
       
     </div>
     
@@ -360,8 +388,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/15/edge-rank/" rel="next" title="edge-rank">
-                <i class="fa fa-chevron-left"></i> edge-rank
+              <a href="/2018/03/14/cnn/" rel="next" title="cnn">
+                <i class="fa fa-chevron-left"></i> cnn
               </a>
             
           </div>
@@ -370,8 +398,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/14/cnn/" rel="prev" title="cnn">
-                cnn <i class="fa fa-chevron-right"></i>
+              <a href="/2018/03/20/query-parse/" rel="prev" title="query_parse">
+                query_parse <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -504,7 +532,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Discriminative-VS-Generative"><span class="nav-number">1.</span> <span class="nav-text">Discriminative VS Generative</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#频率学派-VS-贝叶斯学派"><span class="nav-number">2.</span> <span class="nav-text">频率学派 VS 贝叶斯学派</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Naive-Bayes"><span class="nav-number">3.</span> <span class="nav-text">Naive Bayes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#semi-naive-Bayes-classifier"><span class="nav-number">4.</span> <span class="nav-text">semi-naive Bayes classifier</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#Hivemall是什么"><span class="nav-number">1.</span> <span class="nav-text">Hivemall是什么</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Hive-on-Spark-VS-Hive-on-MR"><span class="nav-number">2.</span> <span class="nav-text">Hive on Spark VS Hive on MR</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Hive-on-Spark-with-Hivemall"><span class="nav-number">3.</span> <span class="nav-text">Hive on Spark with Hivemall</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AUC-calc"><span class="nav-number">4.</span> <span class="nav-text">AUC calc</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Compile-from-source"><span class="nav-number">5.</span> <span class="nav-text">Compile from source</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Hive-amp-Json"><span class="nav-number">6.</span> <span class="nav-text">Hive & Json</span></a></li></ol></div>
             
 
           </div>
