@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="10b2bf9c-1a3f-406f-96c9-ab48ee428e6e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/search/JD-search.pptx" afterPath="$PROJECT_DIR$/docs/search/JD-search.pptx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/_posts/dnn-embedding.md" afterPath="$PROJECT_DIR$/source/_posts/dnn-embedding.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -60,7 +58,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dnn-embedding.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="dnn-embedding.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/source/_posts/dnn-embedding.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="SPLIT">
@@ -71,6 +69,16 @@
               <second_editor>
                 <js_state />
               </second_editor>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MWdnn.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/docs/nn/MWdnn.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="311" column="44" lean-forward="false" selection-start-line="311" selection-start-column="44" selection-end-line="311" selection-end-column="44" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -195,8 +203,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="395" />
-    <option name="y" value="115" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
     <option name="width" value="1438" />
     <option name="height" value="827" />
   </component>
@@ -236,7 +244,7 @@
               <item name="hexo" type="b2602c69:ProjectViewProjectNode" />
               <item name="hexo" type="462c0819:PsiDirectoryNode" />
               <item name="docs" type="462c0819:PsiDirectoryNode" />
-              <item name="search" type="462c0819:PsiDirectoryNode" />
+              <item name="nn" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="hexo" type="b2602c69:ProjectViewProjectNode" />
@@ -261,6 +269,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\blog\sampsonguo.github.io.20171008\hexo\docs\nn" />
       <recent name="E:\blog\sampsonguo.github.io.20171008\hexo\docs\rec" />
       <recent name="E:\blog\sampsonguo.github.io.20171008\hexo\source\_posts\cnn" />
       <recent name="E:\blog\sampsonguo.github.io.20171008\hexo\source\_posts\ctr-recalibration" />
@@ -425,18 +434,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/source/_posts/auc-n-logloss.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="170">
-            <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          </first_editor>
-          <second_editor>
-            <js_state />
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/source/_posts/feature-engineer.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
@@ -892,6 +889,14 @@
           <second_editor>
             <js_state />
           </second_editor>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/nn/MWdnn.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="311" column="44" lean-forward="false" selection-start-line="311" selection-start-column="44" selection-end-line="311" selection-end-column="44" />
+          <folding />
         </state>
       </provider>
     </entry>
