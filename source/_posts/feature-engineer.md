@@ -91,3 +91,10 @@ categories: 机器学习
 但是xgboost中对libsvm的处理，是按照missing来处理的，将0和missing分开的方法是：
 1. 连续特征：增加隐控制变量表达是否missing，另一个变量表示值。
 2. 离散特征：将missing枚举为一个离散值。
+
+### Learn From IJCAI
+* 基础特征
+* 简单特征：转化率，排名，占比，趋势
+* 复杂特征：query交互，用户交互，竞争特征，业务特征
+
+

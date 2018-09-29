@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="起源和工具包word2vec是google在2013年的模型，可以有效的将词映射到某个向量空间，经典的demo是：vector(‘Paris’) - vector(‘France’) + vector(‘Italy’) = vector(‘Rome’)其开源地址是：https://code.google.com/archive/p/word2vec/此工具简单好用，在很多项目上起到了很好的效果 w">
+<meta property="og:type" content="article">
+<meta property="og:title" content="word2vec">
+<meta property="og:url" content="https://sampsonguo.github.io/2018/06/13/word2vec/index.html">
+<meta property="og:site_name" content="GXP&#39;s Blog">
+<meta property="og:description" content="起源和工具包word2vec是google在2013年的模型，可以有效的将词映射到某个向量空间，经典的demo是：vector(‘Paris’) - vector(‘France’) + vector(‘Italy’) = vector(‘Rome’)其开源地址是：https://code.google.com/archive/p/word2vec/此工具简单好用，在很多项目上起到了很好的效果 w">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-09-09T11:43:17.908Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="word2vec">
+<meta name="twitter:description" content="起源和工具包word2vec是google在2013年的模型，可以有效的将词映射到某个向量空间，经典的demo是：vector(‘Paris’) - vector(‘France’) + vector(‘Italy’) = vector(‘Rome’)其开源地址是：https://code.google.com/archive/p/word2vec/此工具简单好用，在很多项目上起到了很好的效果 w">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://sampsonguo.github.io/2018/06/13/word2vec/"/>
+
+
+
+
+
+  <title>word2vec | GXP's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GXP's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2018/06/13/word2vec/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Guo Xinpeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GXP's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">word2vec</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-13T22:34:28+08:00">
+                2018-06-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h5 id="起源和工具包"><a href="#起源和工具包" class="headerlink" title="起源和工具包"></a>起源和工具包</h5><p>word2vec是google在2013年的模型，可以有效的将词映射到某个向量空间，经典的demo是：<br>vector(‘Paris’) - vector(‘France’) + vector(‘Italy’) = vector(‘Rome’)<br>其开源地址是：<a href="https://code.google.com/archive/p/word2vec/" target="_blank" rel="external">https://code.google.com/archive/p/word2vec/</a><br>此工具简单好用，在很多项目上起到了很好的效果</p>
+<h5 id="word-embedding的各种姿势"><a href="#word-embedding的各种姿势" class="headerlink" title="word embedding的各种姿势"></a>word embedding的各种姿势</h5><ul>
+<li>Topic Model：词袋模型，不分先后顺序，代表是LDA模型</li>
+<li>Word2vec：等价于三层神经网络，能捕捉时序信息</li>
+<li>FM：通过FM的weight矩阵将原始向量做变换</li>
+<li>DSSM：通过点击数据把user和item的分别作Deep模型，取出来最顶层的做word representation</li>
+</ul>
+<p>另外NLP领域最新的模型是LSTM和Attention，能否利用其模型做embedding还需调研下</p>
+<ul>
+<li>LSTM：能更好的捕捉时序信息，解决long dependence的问题</li>
+<li>Attention：通过注意力机制</li>
+</ul>
+<h5 id="word2vec的各种包"><a href="#word2vec的各种包" class="headerlink" title="word2vec的各种包"></a>word2vec的各种包</h5><ul>
+<li>google word2vec：效果非常好，单机</li>
+<li>gensim：经典的自然语言处理包，用的人很多，单机</li>
+<li>spark mllib：不确定效果如何，分布式</li>
+<li>tensorflow：未尝试，分布式<br>（因为各种姿势都可以通过tensorflow来实现，包括FM，Word2Vec，以及各种矩阵分解，因此tf是很值得学习的工具。）</li>
+</ul>
+<h5 id="Why-word-embedding？"><a href="#Why-word-embedding？" class="headerlink" title="Why word embedding？"></a>Why word embedding？</h5><ul>
+<li>降维：原始ID维度的特征太大了，需要过多的训练数据，word embedding之后不需要那么多数据，而且防止过拟合</li>
+</ul>
+<h5 id="embedding的两类方法"><a href="#embedding的两类方法" class="headerlink" title="embedding的两类方法"></a>embedding的两类方法</h5><ul>
+<li>count-based：lsa系列，通过矩阵分解来做embedding</li>
+<li>predictive-based：通过预测词可能出现的词来做embedding，如word2vec</li>
+</ul>
+<h5 id="gensim建模-tensorboard可视化"><a href="#gensim建模-tensorboard可视化" class="headerlink" title="gensim建模+tensorboard可视化"></a>gensim建模+tensorboard可视化</h5><ul>
+<li><p>生成gensim训练数据，每行一个doc，空格分隔</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">select list</div><div class="line">from</div><div class="line">(</div><div class="line">    select user_id, concat_ws(&apos; &apos;, collect_set(item_id)) as list</div><div class="line">    from dm_music_prd.t_7d_imusic_iting_user_item_action</div><div class="line">    where ds&gt;=20180520 and action=1 and item_id != -1 and extend&gt;1000*90</div><div class="line">    group by user_id</div><div class="line">) t1</div><div class="line">join</div><div class="line">(</div><div class="line">    select user_id</div><div class="line">    from</div><div class="line">    (</div><div class="line">        select user_id, count(distinct item_id) as cnt</div><div class="line">        from dm_music_prd.t_7d_imusic_iting_user_item_action</div><div class="line">        where ds&gt;=20180520 and action=1 and item_id != -1 and extend&gt;1000*90</div><div class="line">        group by user_id</div><div class="line">    ) f</div><div class="line">    where cnt &gt;= 5 and cnt &lt;= 50</div><div class="line">) t2 on t1.user_id=t2.user_id</div></pre></td></tr></table></figure>
+</li>
+<li><p>gensim训练word2vec模型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">/root/xpguo/anaconda3/bin/python w2v_v2.py user_songlist.v2 ./model_v2/w2v20180625 song_vector_v2</div><div class="line"></div><div class="line">#!/usr/bin/env python</div><div class="line"># -*- coding: utf-8 -*-</div><div class="line"></div><div class="line">import logging</div><div class="line">import os</div><div class="line">import sys</div><div class="line">import multiprocessing</div><div class="line"></div><div class="line">from gensim.models import Word2Vec</div><div class="line">from gensim.models.word2vec import LineSentence</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    program = os.path.basename(sys.argv[0])</div><div class="line">    logger = logging.getLogger(program)</div><div class="line"></div><div class="line">    logging.basicConfig(format=&apos;%(asctime)s: %(levelname)s: %(message)s&apos;)</div><div class="line">    logging.root.setLevel(level=logging.INFO)</div><div class="line">    logger.info(&quot;running %s&quot; % &apos; &apos;.join(sys.argv))</div><div class="line"></div><div class="line">    # check and process input arguments</div><div class="line">    if len(sys.argv) &lt; 4:</div><div class="line">        print(globals()[&apos;__doc__&apos;] % locals())</div><div class="line">        sys.exit(1)</div><div class="line">    inp, outp1, outp2 = sys.argv[1:4]</div><div class="line"></div><div class="line">    model = Word2Vec(LineSentence(inp), size=400, window=5, min_count=5,</div><div class="line">                     workers=multiprocessing.cpu_count())</div><div class="line"></div><div class="line">    # trim unneeded model memory = use(much) less RAM</div><div class="line">    # model.init_sims(replace=True)</div><div class="line">    # w2v model</div><div class="line">    model.save(outp1)</div><div class="line">    # word vectors</div><div class="line">    model.wv.save_word2vec_format(outp2, binary=False)</div></pre></td></tr></table></figure>
+</li>
+<li><p>Tensorboard 可视化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div></pre></td><td class="code"><pre><div class="line">1.	拉取id2name</div><div class="line">mysql -h10.20.125.43 -umyshuju_r -p3KAjvBHaDB&#123;gLE9H -e &quot;select third_id, name from music.t_song_info where third_id is not null and name is not null and length(third_id)&gt;0 and length(name)&gt;0&quot; &gt; t_song_info</div><div class="line"></div><div class="line">2.	写tensorboard模型</div><div class="line">import sys, os</div><div class="line">from gensim.models import Word2Vec</div><div class="line">import tensorflow as tf</div><div class="line">import numpy as np</div><div class="line">from tensorflow.contrib.tensorboard.plugins import projector</div><div class="line"></div><div class="line">id2name = &#123;&#125;</div><div class="line"></div><div class="line">## 可视化函数</div><div class="line">## model: gensim模型地址</div><div class="line">## output_path: tf board转换模型地址</div><div class="line">def visualize(model, output_path):</div><div class="line">    ## tf board转换模型名称，自定义</div><div class="line">    meta_file = &quot;w2x_metadata.tsv&quot;</div><div class="line"></div><div class="line">    ## 词向量个数*词向量维数</div><div class="line">    placeholder = np.zeros((len(model.wv.index2word), 400))</div><div class="line"></div><div class="line">    ## 读取ID2name文件</div><div class="line">    inFp = open(&quot;./t_song_info&quot;, &apos;r&apos;)</div><div class="line">    while True:</div><div class="line">        line = inFp.readline()</div><div class="line">        if not line:</div><div class="line">            break</div><div class="line">        items = line.strip().split(&apos;\t&apos;)</div><div class="line">        if len(items) != 2:</div><div class="line">            continue</div><div class="line">        id2name[items[0]] = items[1]</div><div class="line">    inFp.close()</div><div class="line"></div><div class="line">    ## 地址+名称拼接</div><div class="line">    with open(os.path.join(output_path,meta_file), &apos;wb&apos;) as file_metadata:</div><div class="line"></div><div class="line">        ## 对于每个词向量，写文件</div><div class="line">        for i, word in enumerate(model.wv.index2word):</div><div class="line">            placeholder[i] = model[word]</div><div class="line">            # temporary solution for https://github.com/tensorflow/tensorflow/issues/9094</div><div class="line">            if word == &apos;&apos;:</div><div class="line">                print(&quot;Emply Line, should replecaed by any thing else, or will cause a bug of tensorboard&quot;)</div><div class="line">                file_metadata.write(&quot;&#123;0&#125;&quot;.format(&apos;&lt;Empty Line&gt;&apos;).encode(&apos;utf-8&apos;) + b&apos;\n&apos;)</div><div class="line">            else:</div><div class="line">#                file_metadata.write(&quot;&#123;0&#125;&quot;.format(word).encode(&apos;utf-8&apos;) + b&apos;\n&apos;)</div><div class="line">                file_metadata.write(&quot;&#123;0&#125;&quot;.format(id2name.get(word, &apos;null&apos;)).encode(&apos;utf-8&apos;) + b&apos;\n&apos;)</div><div class="line"></div><div class="line"></div><div class="line">    # define the model without training</div><div class="line">    sess = tf.InteractiveSession()</div><div class="line"></div><div class="line">    embedding = tf.Variable(placeholder, trainable = False, name = &apos;w2x_metadata&apos;)</div><div class="line">    tf.global_variables_initializer().run()</div><div class="line"></div><div class="line">    saver = tf.train.Saver()</div><div class="line">    writer = tf.summary.FileWriter(output_path, sess.graph)</div><div class="line"></div><div class="line">    # adding into projector</div><div class="line">    config = projector.ProjectorConfig()</div><div class="line">    embed = config.embeddings.add()</div><div class="line">    embed.tensor_name = &apos;w2x_metadata&apos;</div><div class="line">    embed.metadata_path = meta_file</div><div class="line"></div><div class="line">    # Specify the width and height of a single thumbnail.</div><div class="line">    projector.visualize_embeddings(writer, config)</div><div class="line">    saver.save(sess, os.path.join(output_path,&apos;w2x_metadata.ckpt&apos;))</div><div class="line">    print(&apos;Run `tensorboard --logdir=&#123;0&#125;` to run visualize result on tensorboard&apos;.format(output_path))</div><div class="line"></div><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line">    model = Word2Vec.load(&quot;/home/xpguo/gensim/word2vec/song_vector_v1/a&quot;)</div><div class="line">visualize(model,&quot;/home/xpguo/gensim/word2vec/song_vector_v1_tf_board&quot;)</div><div class="line"></div><div class="line">3.	tensorboard可视化</div><div class="line">tensorboard --logdir=/home/xpguo/gensim/word2vec/song_vector_v2_tf_board --port=6607</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="word2vec源码细节"><a href="#word2vec源码细节" class="headerlink" title="word2vec源码细节"></a>word2vec源码细节</h5><ul>
+<li><p>预计算sigmoid(x)，将[-6, 6]的区间划分成1000份来计算。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#define EXP_TABLE_SIZE 1000</div><div class="line">#define MAX_EXP 6</div><div class="line">expTable = (real *)malloc((EXP_TABLE_SIZE + 1) * sizeof(real));</div><div class="line">for (i = 0; i &lt; EXP_TABLE_SIZE; i++) &#123;</div><div class="line">  expTable[i] = exp((i / (real)EXP_TABLE_SIZE * 2 - 1) * MAX_EXP); // Precompute the exp() table</div><div class="line">  expTable[i] = expTable[i] / (expTable[i] + 1);                   // Precompute f(x) = x / (x + 1)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>hash函数，每个char+原hash值*257，很常见的做法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// Returns hash value of a word</div><div class="line">int GetWordHash(char *word) &#123;</div><div class="line">  unsigned long long a, hash = 0;</div><div class="line">  for (a = 0; a &lt; strlen(word); a++) hash = hash * 257 + word[a];</div><div class="line">  hash = hash % vocab_hash_size;</div><div class="line">  return hash;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>线性探测法，hash后线性地去找词，要么找到返回词的位置，要么找到-1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">// Returns position of a word in the vocabulary; if the word is not found, returns -1</div><div class="line">int SearchVocab(char *word) &#123;</div><div class="line">  unsigned int hash = GetWordHash(word);</div><div class="line">  while (1) &#123;</div><div class="line">    if (vocab_hash[hash] == -1) return -1;</div><div class="line">    if (!strcmp(word, vocab[vocab_hash[hash]].word)) return vocab_hash[hash];</div><div class="line">    hash = (hash + 1) % vocab_hash_size;</div><div class="line">  &#125;</div><div class="line">  return -1;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>将词添加到词典中， 有两个地方要加，第一是hash映射表，第二是词对应的count表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">// Adds a word to the vocabulary</div><div class="line">int AddWordToVocab(char *word) &#123;</div><div class="line">  unsigned int hash, length = strlen(word) + 1;</div><div class="line">  if (length &gt; MAX_STRING) length = MAX_STRING;</div><div class="line">  vocab[vocab_size].word = (char *)calloc(length, sizeof(char));</div><div class="line">  strcpy(vocab[vocab_size].word, word);</div><div class="line">  vocab[vocab_size].cn = 0;</div><div class="line">  vocab_size++;</div><div class="line">  // Reallocate memory if needed</div><div class="line">  if (vocab_size + 2 &gt;= vocab_max_size) &#123;</div><div class="line">    vocab_max_size += 1000;</div><div class="line">    vocab = (struct vocab_word *)realloc(vocab, vocab_max_size * sizeof(struct vocab_word));</div><div class="line">  &#125;</div><div class="line">  hash = GetWordHash(word);</div><div class="line">  while (vocab_hash[hash] != -1) hash = (hash + 1) % vocab_hash_size;</div><div class="line">  vocab_hash[hash] = vocab_size - 1;</div><div class="line">  return vocab_size - 1;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>将词典排序，目的是为了建立哈弗曼树，有几个地方要注意：一是出现频率比较低的词，会被过滤掉；二是过滤掉之后需要讲hashtable重新hash，因为去掉了一些词，table不能用了。感慨一下，c语言要自己实现hash_dict，真心麻烦。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">// Sorts the vocabulary by frequency using word counts</div><div class="line">void SortVocab() &#123;</div><div class="line">  int a, size;</div><div class="line">  unsigned int hash;</div><div class="line">  // Sort the vocabulary and keep &lt;/s&gt; at the first position</div><div class="line">  qsort(&amp;vocab[1], vocab_size - 1, sizeof(struct vocab_word), VocabCompare);</div><div class="line">  for (a = 0; a &lt; vocab_hash_size; a++) vocab_hash[a] = -1;</div><div class="line">  size = vocab_size;</div><div class="line">  train_words = 0;</div><div class="line">  for (a = 0; a &lt; size; a++) &#123;</div><div class="line">    // Words occuring less than min_count times will be discarded from the vocab</div><div class="line">    if ((vocab[a].cn &lt; min_count) &amp;&amp; (a != 0)) &#123;</div><div class="line">      vocab_size--;</div><div class="line">      free(vocab[a].word);</div><div class="line">    &#125; else &#123;</div><div class="line">      // Hash will be re-computed, as after the sorting it is not actual</div><div class="line">      hash=GetWordHash(vocab[a].word);</div><div class="line">      while (vocab_hash[hash] != -1) hash = (hash + 1) % vocab_hash_size;</div><div class="line">      vocab_hash[hash] = a;</div><div class="line">      train_words += vocab[a].cn;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  vocab = (struct vocab_word *)realloc(vocab, (vocab_size + 1) * sizeof(struct vocab_word));</div><div class="line">  // Allocate memory for the binary tree construction</div><div class="line">  for (a = 0; a &lt; vocab_size; a++) &#123;</div><div class="line">    vocab[a].code = (char *)calloc(MAX_CODE_LENGTH, sizeof(char));</div><div class="line">    vocab[a].point = (int *)calloc(MAX_CODE_LENGTH, sizeof(int));</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>初始化网络参数，首先要搞清楚网络是什么样子的：</p>
+<ul>
+<li>syn0: 存放从词典到第一层的参数，其实就是embedding_look_up表，模型去训练这个表，这个表就是word Embedding表。</li>
+<li>syn1: 存放从第一层到第二层的参数。</li>
+<li>syn1neg: </li>
+<li>hs: </li>
+<li>vocab_size:词典大小。</li>
+<li>layer1_size:第一层大小。</li>
+<li>末尾还会创建一棵哈弗曼树</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">void InitNet() &#123;</div><div class="line">  long long a, b;</div><div class="line">  unsigned long long next_random = 1;</div><div class="line">  a = posix_memalign((void **)&amp;syn0, 128, (long long)vocab_size * layer1_size * sizeof(real));</div><div class="line">  if (syn0 == NULL) &#123;printf(&quot;Memory allocation failed\n&quot;); exit(1);&#125;</div><div class="line">  if (hs) &#123;</div><div class="line">    a = posix_memalign((void **)&amp;syn1, 128, (long long)vocab_size * layer1_size * sizeof(real));</div><div class="line">    if (syn1 == NULL) &#123;printf(&quot;Memory allocation failed\n&quot;); exit(1);&#125;</div><div class="line">    for (a = 0; a &lt; vocab_size; a++) for (b = 0; b &lt; layer1_size; b++)</div><div class="line">     syn1[a * layer1_size + b] = 0;</div><div class="line">  &#125;</div><div class="line">  if (negative&gt;0) &#123;</div><div class="line">    a = posix_memalign((void **)&amp;syn1neg, 128, (long long)vocab_size * layer1_size * sizeof(real));</div><div class="line">    if (syn1neg == NULL) &#123;printf(&quot;Memory allocation failed\n&quot;); exit(1);&#125;</div><div class="line">    for (a = 0; a &lt; vocab_size; a++) for (b = 0; b &lt; layer1_size; b++)</div><div class="line">     syn1neg[a * layer1_size + b] = 0;</div><div class="line">  &#125;</div><div class="line">  for (a = 0; a &lt; vocab_size; a++) for (b = 0; b &lt; layer1_size; b++) &#123;</div><div class="line">    next_random = next_random * (unsigned long long)25214903917 + 11;</div><div class="line">    syn0[a * layer1_size + b] = (((next_random &amp; 0xFFFF) / (real)65536) - 0.5) / layer1_size;</div><div class="line">  &#125;</div><div class="line">  CreateBinaryTree();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>初始化采样表，注意不是直接用次数，而是用pow(次数, 0.75)来做，降低一下高频词的采到的概率。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">void InitUnigramTable() &#123;</div><div class="line">  int a, i;</div><div class="line">  double train_words_pow = 0;</div><div class="line">  double d1, power = 0.75;</div><div class="line">  table = (int *)malloc(table_size * sizeof(int));</div><div class="line">  for (a = 0; a &lt; vocab_size; a++) train_words_pow += pow(vocab[a].cn, power);</div><div class="line">  i = 0;</div><div class="line">  d1 = pow(vocab[i].cn, power) / train_words_pow;</div><div class="line">  for (a = 0; a &lt; table_size; a++) &#123;</div><div class="line">    table[a] = i;</div><div class="line">    if (a / (double)table_size &gt; d1) &#123;</div><div class="line">      i++;</div><div class="line">      d1 += pow(vocab[i].cn, power) / train_words_pow;</div><div class="line">    &#125;</div><div class="line">    if (i &gt;= vocab_size) i = vocab_size - 1;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>构建哈弗曼树，自底向上构建，code指的是，point指的是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">// Create binary Huffman tree using the word counts</div><div class="line">// Frequent words will have short uniqe binary codes</div><div class="line">void CreateBinaryTree() &#123;</div><div class="line">  long long a, b, i, min1i, min2i, pos1, pos2, point[MAX_CODE_LENGTH];</div><div class="line">  char code[MAX_CODE_LENGTH];</div><div class="line">  long long *count = (long long *)calloc(vocab_size * 2 + 1, sizeof(long long));</div><div class="line">  long long *binary = (long long *)calloc(vocab_size * 2 + 1, sizeof(long long));</div><div class="line">  long long *parent_node = (long long *)calloc(vocab_size * 2 + 1, sizeof(long long));</div><div class="line">  for (a = 0; a &lt; vocab_size; a++) count[a] = vocab[a].cn;</div><div class="line">  for (a = vocab_size; a &lt; vocab_size * 2; a++) count[a] = 1e15;</div><div class="line">  pos1 = vocab_size - 1;</div><div class="line">  pos2 = vocab_size;</div><div class="line">  // Following algorithm constructs the Huffman tree by adding one node at a time</div><div class="line">  for (a = 0; a &lt; vocab_size - 1; a++) &#123;</div><div class="line">    // First, find two smallest nodes &apos;min1, min2&apos;</div><div class="line">    if (pos1 &gt;= 0) &#123;</div><div class="line">      if (count[pos1] &lt; count[pos2]) &#123;</div><div class="line">        min1i = pos1;</div><div class="line">        pos1--;</div><div class="line">      &#125; else &#123;</div><div class="line">        min1i = pos2;</div><div class="line">        pos2++;</div><div class="line">      &#125;</div><div class="line">    &#125; else &#123;</div><div class="line">      min1i = pos2;</div><div class="line">      pos2++;</div><div class="line">    &#125;</div><div class="line">    if (pos1 &gt;= 0) &#123;</div><div class="line">      if (count[pos1] &lt; count[pos2]) &#123;</div><div class="line">        min2i = pos1;</div><div class="line">        pos1--;</div><div class="line">      &#125; else &#123;</div><div class="line">        min2i = pos2;</div><div class="line">        pos2++;</div><div class="line">      &#125;</div><div class="line">    &#125; else &#123;</div><div class="line">      min2i = pos2;</div><div class="line">      pos2++;</div><div class="line">    &#125;</div><div class="line">    count[vocab_size + a] = count[min1i] + count[min2i];</div><div class="line">    parent_node[min1i] = vocab_size + a;</div><div class="line">    parent_node[min2i] = vocab_size + a;</div><div class="line">    binary[min2i] = 1;</div><div class="line">  &#125;</div><div class="line">  // Now assign binary code to each vocabulary word</div><div class="line">  for (a = 0; a &lt; vocab_size; a++) &#123;</div><div class="line">    b = a;</div><div class="line">    i = 0;</div><div class="line">    while (1) &#123;</div><div class="line">      code[i] = binary[b];</div><div class="line">      point[i] = b;</div><div class="line">      i++;</div><div class="line">      b = parent_node[b];</div><div class="line">      if (b == vocab_size * 2 - 2) break;</div><div class="line">    &#125;</div><div class="line">    vocab[a].codelen = i;</div><div class="line">    vocab[a].point[0] = vocab_size - 2;</div><div class="line">    for (b = 0; b &lt; i; b++) &#123;</div><div class="line">      vocab[a].code[i - b - 1] = code[b];</div><div class="line">      vocab[a].point[i - b] = point[b] - vocab_size;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  free(count);</div><div class="line">  free(binary);</div><div class="line">  free(parent_node);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/02/elastic-search-md/" rel="next" title="elastic-search.md">
+                <i class="fa fa-chevron-left"></i> elastic-search.md
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/21/hive-param-tune/" rel="prev" title="hive-param-tune">
+                hive-param-tune <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Guo Xinpeng</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#起源和工具包"><span class="nav-number">1.</span> <span class="nav-text">起源和工具包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#word-embedding的各种姿势"><span class="nav-number">2.</span> <span class="nav-text">word embedding的各种姿势</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#word2vec的各种包"><span class="nav-number">3.</span> <span class="nav-text">word2vec的各种包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Why-word-embedding？"><span class="nav-number">4.</span> <span class="nav-text">Why word embedding？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#embedding的两类方法"><span class="nav-number">5.</span> <span class="nav-text">embedding的两类方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#gensim建模-tensorboard可视化"><span class="nav-number">6.</span> <span class="nav-text">gensim建模+tensorboard可视化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#word2vec源码细节"><span class="nav-number">7.</span> <span class="nav-text">word2vec源码细节</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guo Xinpeng</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

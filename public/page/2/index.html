@@ -249,6 +249,1263 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2018/03/19/hivemall/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Guo Xinpeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GXP's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/19/hivemall/" itemprop="url">hivemall</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-19T10:57:35+08:00">
+                2018-03-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="Hivemall是什么"><a href="#Hivemall是什么" class="headerlink" title="Hivemall是什么"></a>Hivemall是什么</h5><ul>
+<li>apache主页：<a href="http://hivemall.incubator.apache.org/index.html" target="_blank" rel="external">http://hivemall.incubator.apache.org/index.html</a></li>
+<li>包含: regression, classification, recommendation, anomaly detection, k-nearest neighbor, and feature engineering</li>
+<li>包含ML: Soft Confidence Weighted, Adaptive Regularization of Weight Vectors, Factorization Machines, and AdaDelta</li>
+<li>Support: Hive, Spark, Pig</li>
+<li>Architecture<img src="/2018/03/19/hivemall/hivemall_1.PNG" alt="[hivemall_architecture]" title="[hivemall_architecture]">
+</li>
+</ul>
+<h5 id="Hive-on-Spark-VS-Hive-on-MR"><a href="#Hive-on-Spark-VS-Hive-on-MR" class="headerlink" title="Hive on Spark VS Hive on MR"></a>Hive on Spark VS Hive on MR</h5><ul>
+<li>configure: set hive.execution.engine=spark;</li>
+<li>tutorial: <a href="https://cwiki.apache.org/confluence/display/Hive/Hive+on+Spark%3A+Getting+Started" target="_blank" rel="external">https://cwiki.apache.org/confluence/display/Hive/Hive+on+Spark%3A+Getting+Started</a></li>
+<li>测试:<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">select max(a) as a, max(b) as b</div><div class="line">from</div><div class="line">(</div><div class="line">select 1 as a, 2 as b</div><div class="line">union all</div><div class="line">select 2 as a, 3 as b</div><div class="line">union all</div><div class="line">select 3 as a, 4 as b</div><div class="line">) t</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="Hive-on-Spark-with-Hivemall"><a href="#Hive-on-Spark-with-Hivemall" class="headerlink" title="Hive on Spark with Hivemall"></a>Hive on Spark with Hivemall</h5><ul>
+<li>hive check version: hive –version</li>
+<li>download Hivemall: <a href="https://hivemall.incubator.apache.org/download.html" target="_blank" rel="external">https://hivemall.incubator.apache.org/download.html</a></li>
+<li>UDF define: <a href="https://github.com/apache/incubator-hivemall/blob/master/resources/ddl/define-all.hive" target="_blank" rel="external">https://github.com/apache/incubator-hivemall/blob/master/resources/ddl/define-all.hive</a></li>
+<li><p>add jar</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">add jaradd jar hdfs://footstone/data/project/dataming/contentrec/hivemall/hivemall-all-0.5.0-incubating.jar;</div><div class="line">source define-all.hive;</div></pre></td></tr></table></figure>
+</li>
+<li><p>setting queue: set mapred.job.queue.name=root.dataming.dev;</p>
+</li>
+<li>set hive nonstrict mode: set hive.mapred.mode=nonstrict;</li>
+</ul>
+<h5 id="AUC-calc"><a href="#AUC-calc" class="headerlink" title="AUC calc"></a>AUC calc</h5><ul>
+<li><p>Single node</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">with data as (</div><div class="line">  select 0.5 as prob, 0 as label</div><div class="line">  union all</div><div class="line">  select 0.3 as prob, 1 as label</div><div class="line">  union all</div><div class="line">  select 0.2 as prob, 0 as label</div><div class="line">  union all</div><div class="line">  select 0.8 as prob, 1 as label</div><div class="line">  union all</div><div class="line">  select 0.7 as prob, 1 as label</div><div class="line">)</div><div class="line">select</div><div class="line">  auc(prob, label) as auc</div><div class="line">from (</div><div class="line">  select prob, label</div><div class="line">  from data</div><div class="line">  ORDER BY prob DESC</div><div class="line">) t;</div></pre></td></tr></table></figure>
+</li>
+<li><p>Parallel approximate</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">with data as (</div><div class="line">  select 0.5 as prob, 0 as label</div><div class="line">  union all</div><div class="line">  select 0.3 as prob, 1 as label</div><div class="line">  union all</div><div class="line">  select 0.2 as prob, 0 as label</div><div class="line">  union all</div><div class="line">  select 0.8 as prob, 1 as label</div><div class="line">  union all</div><div class="line">  select 0.7 as prob, 1 as label</div><div class="line">)</div><div class="line">select</div><div class="line">  auc(prob, label) as auc</div><div class="line">from (</div><div class="line">  select prob, label</div><div class="line">  from data</div><div class="line">  DISTRIBUTE BY floor(prob / 0.2)</div><div class="line">  SORT BY prob DESC</div><div class="line">) t;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="Compile-from-source"><a href="#Compile-from-source" class="headerlink" title="Compile from source"></a>Compile from source</h5><ul>
+<li>git clone <a href="https://github.com/sampsonguo/incubator-hivemall.git" target="_blank" rel="external">https://github.com/sampsonguo/incubator-hivemall.git</a></li>
+<li>mvn clean package -Dmaven.test.skip=true</li>
+<li>create temporary function beta_dist_sample as ‘com.sigmoidguo.math.BetaUDF’;</li>
+</ul>
+<h5 id="Hive-amp-Json"><a href="#Hive-amp-Json" class="headerlink" title="Hive &amp; Json"></a>Hive &amp; Json</h5><p>hive解析json:</p>
+<ul>
+<li>json_split: brickhouse split array</li>
+<li>get_json_object: hive udf</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2018/03/14/cnn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Guo Xinpeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GXP's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/14/cnn/" itemprop="url">cnn</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-14T13:51:41+08:00">
+                2018-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Detect-vertical-horizontal-edges"><a href="#Detect-vertical-horizontal-edges" class="headerlink" title="Detect vertical/horizontal edges"></a>Detect vertical/horizontal edges</h4><p>CNN kernal below can be used for detecting vertical edges</p>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>0</th>
+<th>-1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>-1</td>
+</tr>
+</tbody>
+</table>
+<h4 id="stride-amp-padding"><a href="#stride-amp-padding" class="headerlink" title="stride &amp; padding"></a>stride &amp; padding</h4><table>
+<thead>
+<tr>
+<th>params</th>
+<th>values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>input volume size</td>
+<td>W</td>
+</tr>
+<tr>
+<td>stride</td>
+<td>S</td>
+</tr>
+<tr>
+<td>padding</td>
+<td>P</td>
+</tr>
+<tr>
+<td>filter size</td>
+<td>F</td>
+</tr>
+<tr>
+<td>output volume size</td>
+<td>(W−F+2P)/S+1(W−F+2P)/S+1</td>
+</tr>
+</tbody>
+</table>
+<h4 id="advantages"><a href="#advantages" class="headerlink" title="advantages"></a>advantages</h4><ul>
+<li>parameter sharing</li>
+<li>sparsity of connections</li>
+</ul>
+<h4 id="xavier-initializer"><a href="#xavier-initializer" class="headerlink" title="xavier_initializer"></a>xavier_initializer</h4><ul>
+<li>uniform distribution: x = sqrt(6. / (in + out)); [-x, x]</li>
+<li>normal distribution: x = sqrt(2. / (in + out)); [-x, x]</li>
+</ul>
+<h4 id="Convolution-Demo"><a href="#Convolution-Demo" class="headerlink" title="Convolution Demo"></a>Convolution Demo</h4><ul>
+<li>W: width = 5</li>
+<li>H: Height = 5</li>
+<li>D: Depth = 3</li>
+<li>K: number of filters = 2</li>
+<li>F: Filter size = 3</li>
+<li>S: Stride = 2</li>
+<li><p>P: Padding = 1</p>
+<img src="/2018/03/14/cnn/cnn002.png" alt="[cnn002.png]" title="[cnn002.png]">
+</li>
+</ul>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p>
+<h4 id="Pooling-Demo"><a href="#Pooling-Demo" class="headerlink" title="Pooling Demo"></a>Pooling Demo</h4> <img src="/2018/03/14/cnn/cnn003.png" alt="[cnn003.png]" title="[cnn003.png]">
+<h4 id="LeNet"><a href="#LeNet" class="headerlink" title="LeNet"></a>LeNet</h4><ul>
+<li><p><a href="http://yann.lecun.com/exdb/publis/pdf/lecun-98.pdf" target="_blank" rel="external">http://yann.lecun.com/exdb/publis/pdf/lecun-98.pdf</a></p>
+<img src="/2018/03/14/cnn/lenet.png" alt="[lenet.png]" title="[lenet.png]">
+</li>
+<li><p>CONV</p>
+</li>
+<li>POOL</li>
+<li>FC</li>
+</ul>
+<h4 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h4><ul>
+<li><p><a href="http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf" target="_blank" rel="external">http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf</a></p>
+<img src="/2018/03/14/cnn/lenet.png" alt="[lenet.png]" title="[lenet.png]">
+<ul>
+<li>Bigger</li>
+<li><h1 id="Deeper"><a href="#Deeper" class="headerlink" title="Deeper"></a>Deeper</h1><h4 id="LeNet-1"><a href="#LeNet-1" class="headerlink" title="LeNet"></a>LeNet</h4></li>
+</ul>
+</li>
+</ul>
+<h4 id="AlexNet-1"><a href="#AlexNet-1" class="headerlink" title="AlexNet"></a>AlexNet</h4><blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>1be2ebd4ec9a7cfdbd6c6e6d48a5059b0bc4ede5</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<h4 id="VGGNet"><a href="#VGGNet" class="headerlink" title="VGGNet"></a>VGGNet</h4><h4 id="GoogleNet"><a href="#GoogleNet" class="headerlink" title="GoogleNet"></a>GoogleNet</h4><h4 id="ResNet"><a href="#ResNet" class="headerlink" title="ResNet"></a>ResNet</h4><h4 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h4><ul>
+<li><a href="http://cs231n.github.io/convolutional-networks/" target="_blank" rel="external">http://cs231n.github.io/convolutional-networks/</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2018/01/16/bayes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Guo Xinpeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GXP's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/16/bayes/" itemprop="url">bayes</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-16T11:26:02+08:00">
+                2018-01-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Discriminative-VS-Generative"><a href="#Discriminative-VS-Generative" class="headerlink" title="Discriminative VS Generative"></a>Discriminative VS Generative</h3><ul>
+<li>Discriminative models 判别模型<br>直接建模P(c|x)</li>
+<li>Generative models 生成模型<br>P(c|x) = P(x, c) / P(x) = P(c)*P(x|c)/P(x)<br>其中，<ul>
+<li>P(c)可以通过统计各类样本比例频率来估计 –频率学派</li>
+<li>P(x|c)因为样本x的数据量太小，很难估计准确</li>
+</ul>
+</li>
+</ul>
+<h3 id="频率学派-VS-贝叶斯学派"><a href="#频率学派-VS-贝叶斯学派" class="headerlink" title="频率学派 VS 贝叶斯学派"></a>频率学派 VS 贝叶斯学派</h3><ul>
+<li>Frequentist 频率学派<br>参数是一个未知但客观存在的固定值</li>
+<li>Bayesian 贝叶斯学派<br>参数本身是一个分布 </li>
+</ul>
+<h3 id="Naive-Bayes"><a href="#Naive-Bayes" class="headerlink" title="Naive Bayes"></a>Naive Bayes</h3><ul>
+<li>属性条件独立性假设（假设每个属性独立地对分类结果发生影响）</li>
+<li>Smoothing: 拉普拉斯修正（Laplacian Correction）</li>
+<li>Lazy Learning</li>
+</ul>
+<h3 id="semi-naive-Bayes-classifier"><a href="#semi-naive-Bayes-classifier" class="headerlink" title="semi-naive Bayes classifier"></a>semi-naive Bayes classifier</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2018/01/15/edge-rank/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Guo Xinpeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GXP's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/15/edge-rank/" itemprop="url">edge-rank</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-15T20:37:48+08:00">
+                2018-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>### </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2018/01/08/search/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Guo Xinpeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GXP's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/08/search/" itemprop="url">search</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-08T16:05:05+08:00">
+                2018-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="垂直领域搜索"><a href="#垂直领域搜索" class="headerlink" title="垂直领域搜索"></a>垂直领域搜索</h3><p>APP搜索引擎，属于垂直领域的搜索引擎，相对于泛需求的搜索引擎会简单很多。<br>泛搜索引擎 -&gt; 意图识别（下APP，听歌，找wiki） -&gt; 该意图垂直领域引擎<br>即在垂直领域，不需要挂载意图识别模块。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/01/08/search/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2018/01/05/tf-wnd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Guo Xinpeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GXP's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/05/tf-wnd/" itemprop="url">tf_wnd</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-05T11:46:39+08:00">
+                2018-01-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="wide-n-deep-code"><a href="#wide-n-deep-code" class="headerlink" title="wide_n_deep code"></a>wide_n_deep code</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">from __future__ import absolute_import</div><div class="line">from __future__ import division</div><div class="line">from __future__ import print_function</div><div class="line"></div><div class="line">import sys</div><div class="line">import os</div><div class="line">import logging</div><div class="line">import json</div><div class="line">import math</div><div class="line"></div><div class="line">from six.moves import urllib</div><div class="line">import tensorflow as tf</div><div class="line"></div><div class="line"># 读取文件</div><div class="line">reader = tf.TextLineReader(skip_header_lines = 0)</div><div class="line"></div><div class="line"># 文件列表</div><div class="line">train_input_files = [&quot;/root/xpguo/wnd/1.txt&quot;, &quot;/root/xpguo/wnd/2.txt&quot;]</div><div class="line"></div><div class="line">input_file_list = []</div><div class="line">for input_file in train_input_files:</div><div class="line">    if len(input_file) &gt; 0:</div><div class="line">        input_file_list.append(tf.train.match_filenames_once(input_file))</div><div class="line"></div><div class="line">filename_queue = tf.train.string_input_producer(</div><div class="line">                tf.concat(input_file_list, axis = 0),</div><div class="line">                num_epochs = 10,     # strings are repeated num_epochs</div><div class="line">                shuffle = True,     # strings are randomly shuffled within each epoch</div><div class="line">                capacity = 512)</div><div class="line"></div><div class="line">batch_size = 3</div><div class="line"></div><div class="line">(_, records) = reader.read_up_to(filename_queue, num_records = batch_size)</div><div class="line">samples = tf.decode_csv(records, record_defaults = column_defaults, field_delim = &apos;,&apos;)</div><div class="line">label = tf.cast(samples[self.column_dict[&quot;label&quot;]], dtype = tf.int32)</div><div class="line">feature_dict = &#123;&#125;</div><div class="line">for (key, value) in self.column_dict.items():</div><div class="line">    if key == &quot;label&quot; or value &lt; 0 or value &gt;= len(samples):</div><div class="line">        continue</div><div class="line">    if key in [&quot;user_features&quot;, &quot;ads_features&quot;]:</div><div class="line">        feature_dict[key] = tf.string_split(samples[value], delimiter = &apos;;&apos;)</div><div class="line">    if key in [&quot;user_weights&quot;, &quot;ads_weights&quot;]:</div><div class="line">        feature_dict[key] = self.string_to_number(</div><div class="line">                tf.string_split(samples[value], delimiter = &apos;;&apos;),</div><div class="line">                dtype = tf.float32)</div><div class="line">return feature_dict, label</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2017/12/15/kafka/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Guo Xinpeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GXP's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/15/kafka/" itemprop="url">kafka</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-15T10:49:48+08:00">
+                2017-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>topics</li>
+<li>producers</li>
+<li>consumers</li>
+<li>brokers: all node in the cluster is called a Kafka broker</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2017/12/14/distributed-tf/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Guo Xinpeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GXP's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/14/distributed-tf/" itemprop="url">distributed_tf</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-14T16:20:18+08:00">
+                2017-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="basic-concepts"><a href="#basic-concepts" class="headerlink" title="basic concepts"></a>basic concepts</h4><ul>
+<li>cluster: a set of tasks, one or more jobs</li>
+<li>server: master+worker</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2017/12/13/dt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Guo Xinpeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GXP's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/13/dt/" itemprop="url">dt</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-13T21:45:15+08:00">
+                2017-12-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="entropy-information-gain-gain-ratio"><a href="#entropy-information-gain-gain-ratio" class="headerlink" title="entropy, information gain, gain ratio"></a>entropy, information gain, gain ratio</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2017/12/07/ctr-smooth/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -429,1211 +1686,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2017/11/27/MachineLearning-ZhouZhihua/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Guo Xinpeng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GXP's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/27/MachineLearning-ZhouZhihua/" itemprop="url">MachineLearning_ZhouZhihua</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-27T11:10:36+08:00">
-                2017-11-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="chapter-1"><a href="#chapter-1" class="headerlink" title="chapter 1"></a>chapter 1</h3><ul>
-<li>No Free Lunch Theorem(NFL)</li>
-</ul>
-<p>算法应用于问题要具体问题具体分析</p>
-<h3 id="chapture-2-模型评估和选择"><a href="#chapture-2-模型评估和选择" class="headerlink" title="chapture 2: 模型评估和选择"></a>chapture 2: 模型评估和选择</h3><h4 id="Basic-Concepts"><a href="#Basic-Concepts" class="headerlink" title="Basic Concepts"></a>Basic Concepts</h4><ul>
-<li>error<ul>
-<li>empirical error/training error 经验误差（训练误差）</li>
-<li>generalization error 泛化误差（预测集误差）</li>
-</ul>
-</li>
-<li>fitting<ul>
-<li>overfitting</li>
-<li>underfitting</li>
-</ul>
-</li>
-<li>set<ul>
-<li>train / dev / test set</li>
-</ul>
-</li>
-<li>cross validation<ul>
-<li>k-fold</li>
-</ul>
-</li>
-<li>bootstrapping<ul>
-<li>适用小数据集</li>
-<li>会改变数据分布</li>
-</ul>
-</li>
-<li>parameter tuning</li>
-<li>performance measure<ul>
-<li>MSE: mean squared error </li>
-<li>error rate</li>
-<li>accuracy rate</li>
-<li>Precision/Recall/F1/ROC/AUC</li>
-</ul>
-</li>
-</ul>
-<h4 id="常见错误"><a href="#常见错误" class="headerlink" title="常见错误"></a>常见错误</h4><ul>
-<li>训练集测试集分布不一致(采样？Group By?)</li>
-<li>数据穿越</li>
-</ul>
-<h4 id="代码敏感错误率与代价曲线"><a href="#代码敏感错误率与代价曲线" class="headerlink" title="代码敏感错误率与代价曲线"></a>代码敏感错误率与代价曲线</h4><ul>
-<li>代价曲线与期望总体代价</li>
-<li>假设检验</li>
-</ul>
-<h4 id="多分类"><a href="#多分类" class="headerlink" title="多分类"></a>多分类</h4><ul>
-<li>Linear Regression/Logistic Regression/LDA(Linear Discriminant Analysis)</li>
-<li>OVO, OVR</li>
-</ul>
-<h4 id="DT"><a href="#DT" class="headerlink" title="DT"></a>DT</h4><ul>
-<li>entropy/IG/Gini</li>
-<li>预减枝/后减枝</li>
-</ul>
-<h4 id="ANN"><a href="#ANN" class="headerlink" title="ANN"></a>ANN</h4><ul>
-<li>Perceptron</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2017/11/23/ctr-recalibration/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Guo Xinpeng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GXP's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/23/ctr-recalibration/" itemprop="url">ctr_recalibration</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-23T20:21:40+08:00">
-                2017-11-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="CTR为什么会不准？"><a href="#CTR为什么会不准？" class="headerlink" title="CTR为什么会不准？"></a>CTR为什么会不准？</h3><p>在计算广告中，pCTR往往对比真实的CTR偏高或者偏低的现象，尤其在</p>
-<ol>
-<li>热门曝光广告和冷门曝光广告之间</li>
-<li>高CTR广告和低CTR广告之间</li>
-</ol>
-<p>因此，CTR需要校准。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/11/23/ctr-recalibration/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2017/11/23/exploding-n-vanishing/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Guo Xinpeng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GXP's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/23/exploding-n-vanishing/" itemprop="url">exploding_n_vanishing</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-23T14:33:26+08:00">
-                2017-11-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Opinions:</p>
-<ol>
-<li>This two problems becomes worth as the number of layers in the architecture increases.</li>
-<li></li>
-</ol>
-<ul>
-<li>vanishing gradients<br>假设有一个N层的DNN模型，那么y可以</li>
-</ul>
-<p>y = Wn <em> Wn-1 </em> Wn-2 <em>…</em> W1 * X</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2017/11/17/spark-streaming/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Guo Xinpeng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GXP's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/17/spark-streaming/" itemprop="url">spark-streaming</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-17T14:38:36+08:00">
-                2017-11-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="spark-streaming-k-means"><a href="#spark-streaming-k-means" class="headerlink" title="spark streaming k-means"></a>spark streaming k-means</h3><ul>
-<li>decay(forgetfulness)</li>
-<li>mini-batch k-means<ul>
-<li>c_t+1 = [(c_t <em> n_t </em> a) + (x_t * m_t)] / [n_t + m_t]</li>
-<li>n_t+t = n_t * a + m_t</li>
-</ul>
-</li>
-</ul>
-<h3 id="Broadcast-Variables"><a href="#Broadcast-Variables" class="headerlink" title="Broadcast Variables"></a>Broadcast Variables</h3><ul>
-<li>ref<br><a href="https://databricks.com/blog/2015/01/28/introducing-streaming-k-means-in-spark-1-2.html" target="_blank" rel="external">https://databricks.com/blog/2015/01/28/introducing-streaming-k-means-in-spark-1-2.html</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2017/10/28/xgboost-n-spark/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Guo Xinpeng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GXP's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/28/xgboost-n-spark/" itemprop="url">xgboost-n-spark</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-28T14:30:04+08:00">
-                2017-10-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="xgboost"><a href="#xgboost" class="headerlink" title="xgboost"></a>xgboost</h3><ul>
-<li>model: GBDT/GBRT/GBM</li>
-<li>language: Python, R, Java, Scala, C++</li>
-<li>integrity: single machine, Hadoop, Spark, Flink, DataFlow</li>
-</ul>
-<h3 id="xgboost和gbdt的区别"><a href="#xgboost和gbdt的区别" class="headerlink" title="xgboost和gbdt的区别"></a>xgboost和gbdt的区别</h3><blockquote>
-<p>The name xgboost, though, actually refers to the engineering goal to push the limit of computations resources for boosted tree algorithms.<br>Which is the reason why many people use xgboost.<br>For model, it might be more suitable to be called as regularized gradient boosting.</p>
-</blockquote>
-<h3 id="xgboost-1"><a href="#xgboost-1" class="headerlink" title="xgboost"></a>xgboost</h3>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2017/10/26/subway/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Guo Xinpeng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GXP's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/26/subway/" itemprop="url">做地铁和囚徒困境</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-26T10:06:09+08:00">
-                2017-10-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>早上做地铁，很挤，发现进地铁门，是个囚徒困境。</p>
-<ul>
-<li>环境<ul>
-<li>进地铁门，可以从左边上，可以从右边上</li>
-<li>出地铁门，可以从左边下，右边下（标志是中间下，但门不大，不可能同时两边上中间下 ，尴尬）</li>
-</ul>
-</li>
-<li>困境<ul>
-<li>两边同时上：因车上人要下来，所以谁都上不去</li>
-<li>一边上一遍下：上去了的开心，下去了的开心，上不去的一边尴尬</li>
-<li>两边先都不上：车上人迅速下完，开开心心上车</li>
-</ul>
-</li>
-<li>结论<ul>
-<li>社会在惩罚遵守规则者</li>
-<li>建议地铁门做大点儿</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2017/10/24/ee-n-dqn/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Guo Xinpeng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GXP's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/24/ee-n-dqn/" itemprop="url">ee-n-dqn</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-24T23:59:18+08:00">
-                2017-10-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="先有鸡还是先有蛋？"><a href="#先有鸡还是先有蛋？" class="headerlink" title="先有鸡还是先有蛋？"></a>先有鸡还是先有蛋？</h3><h4 id="数据闭环"><a href="#数据闭环" class="headerlink" title="数据闭环"></a>数据闭环</h4><p>推荐系统根据用户日志来进行建模推荐，即：<br>日志 -&gt; 推荐算法 -&gt; 用户</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/10/24/ee-n-dqn/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2017/10/15/pr/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Guo Xinpeng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GXP's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/15/pr/" itemprop="url">pr</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-15T15:40:41+08:00">
-                2017-10-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>PR有三个含义，差点儿搞晕了：</p>
-<ul>
-<li>Public Relation: 公共关系，即公关</li>
-<li>Peer Review: 同事评估，往往是代码的peer review, 代码的话常常code review(CR)</li>
-<li>Pull Request: git上initiate discussion about your commits</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2017/10/10/logit-n-probit/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Guo Xinpeng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GXP's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/10/logit-n-probit/" itemprop="url">logit-n-probit</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-10T19:36:54+08:00">
-                2017-10-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="logistic-VS-logit"><a href="#logistic-VS-logit" class="headerlink" title="logistic VS logit"></a>logistic VS logit</h3><p>先上两幅logistic和logit的图</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/10/10/logit-n-probit/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1679,7 +1736,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1701,7 +1758,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>

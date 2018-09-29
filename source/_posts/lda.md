@@ -50,6 +50,11 @@ categories: 数据挖掘
   * LDA简介 http://blog.csdn.net/huagong_adu/article/details/7937616
   * Gibbs采样 https://www.youtube.com/watch?v=a_08GKWHFWo
 
+#### Dirichlet Distribution
+* 公式: p(P = {pi} | ai)
+* E(p) = ai/sum(ai)
+* 极大似然 = (ai-1) / sum(ai-1)
+
 #### 实践
 * 基础数据
   * 豌豆荚软件的描述信息

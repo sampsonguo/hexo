@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="近期需要进行校招生内推面试，记录一下面试要点。 流程内推面试时长30min，流程上是：自我介绍（5min） -&amp;gt; 项目介绍+基础知识测试（10min） -&amp;gt; 思考能力测试（15min） 自我介绍自我介绍环节，重点了解候选人的特点，有以下几种：  学霸：名校毕业，专业排名靠前，重点考察基础知识和学习能力 名企实习：在BAT等有过实习经历，重点考察实习项目和思考 热衷比赛：kaggle比赛">
+<meta property="og:type" content="article">
+<meta property="og:title" content="interview_questions">
+<meta property="og:url" content="https://sampsonguo.github.io/2018/08/05/interview-questions/index.html">
+<meta property="og:site_name" content="GXP&#39;s Blog">
+<meta property="og:description" content="近期需要进行校招生内推面试，记录一下面试要点。 流程内推面试时长30min，流程上是：自我介绍（5min） -&amp;gt; 项目介绍+基础知识测试（10min） -&amp;gt; 思考能力测试（15min） 自我介绍自我介绍环节，重点了解候选人的特点，有以下几种：  学霸：名校毕业，专业排名靠前，重点考察基础知识和学习能力 名企实习：在BAT等有过实习经历，重点考察实习项目和思考 热衷比赛：kaggle比赛">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-08-09T02:08:58.979Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="interview_questions">
+<meta name="twitter:description" content="近期需要进行校招生内推面试，记录一下面试要点。 流程内推面试时长30min，流程上是：自我介绍（5min） -&amp;gt; 项目介绍+基础知识测试（10min） -&amp;gt; 思考能力测试（15min） 自我介绍自我介绍环节，重点了解候选人的特点，有以下几种：  学霸：名校毕业，专业排名靠前，重点考察基础知识和学习能力 名企实习：在BAT等有过实习经历，重点考察实习项目和思考 热衷比赛：kaggle比赛">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://sampsonguo.github.io/2018/08/05/interview-questions/"/>
+
+
+
+
+
+  <title>interview_questions | GXP's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GXP's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sampsonguo.github.io/2018/08/05/interview-questions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Guo Xinpeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GXP's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">interview_questions</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-05T16:19:00+08:00">
+                2018-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>近期需要进行校招生内推面试，记录一下面试要点。</p>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><p>内推面试时长30min，流程上是：<br>自我介绍（5min） -&gt; 项目介绍+基础知识测试（10min） -&gt; 思考能力测试（15min）</p>
+<h3 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h3><p>自我介绍环节，重点了解候选人的特点，有以下几种：</p>
+<ul>
+<li>学霸：名校毕业，专业排名靠前，重点考察基础知识和学习能力</li>
+<li>名企实习：在BAT等有过实习经历，重点考察实习项目和思考</li>
+<li>热衷比赛：kaggle比赛，ACM比赛等有拿奖或排名靠前，重点考察对应比赛的经验并相应出题</li>
+</ul>
+<h3 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h3><ul>
+<li>适当打断，问为什么这么做，问实现的细节，看应变。</li>
+</ul>
+<h3 id="基础知识测试"><a href="#基础知识测试" class="headerlink" title="基础知识测试"></a>基础知识测试</h3><p>在候选人介绍项目的时候，询问项目细节，适当的提出问题：</p>
+<ul>
+<li>机器学习<ul>
+<li>基础知识1：过拟合和欠拟合是什么？对应的模型如何解决？<ul>
+<li>过拟合：训练误差小，预测误差大</li>
+<li>欠拟合：训练和预测误差都很大</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>过拟合</th>
+<th>欠拟合</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>增加训练数据量</td>
+<td>-</td>
+</tr>
+<tr>
+<td>做特征筛选</td>
+<td>收集更多特征</td>
+</tr>
+<tr>
+<td>用更简单模型</td>
+<td>用复杂模型</td>
+</tr>
+<tr>
+<td>增大模型正则</td>
+<td>减少模型正则</td>
+</tr>
+<tr>
+<td>DT/RF/GBDT 减小树深度</td>
+<td>DT/RF/GBDT 增大树深度</td>
+</tr>
+<tr>
+<td>NN减少深/宽度，early stop，增加drop out</td>
+<td>NN增加深/宽度，增大epoch</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>基础知识2：特征共线性是什么？如何解决？<ul>
+<li>特征共线性是变量之间存在相关性，导致模型不稳定，泛化误差大。</li>
+<li><ol>
+<li>wrapper贪心添加特征，做特征筛选  2.增加正则</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>基础知识3：lasso regression和ridge regression的区别是什么？</li>
+<li>模型评估1： precision和accuracy的区别是什么？<ul>
+<li>precision = TP/(TP+FP)</li>
+<li>accuracy = (TP+TN)/(TP+TN+FP+FN)</li>
+</ul>
+</li>
+<li>模型评估2： F1 和 AUC的区别是什么？<ul>
+<li>F1 是一个准召权衡的一个点，AUC是roc曲线下面积，F1上阈值移动过程中AUC上的一个点。</li>
+</ul>
+</li>
+<li>模型评估3： AUC高但是logloss太大，是为什么？反过来，又是为什么？<ul>
+<li>AUC高但logloss大：序准值不准，可能是采样导致的，进行后处理校准。</li>
+<li>AUC低但是logloss小：值准序不准，模型学到了平均值，欠拟合。</li>
+</ul>
+</li>
+<li>树模型：比较下RF和GBDT<ul>
+<li>bagging vs boosting, 树越多越不过拟合 vs 越过拟合，训练快预测慢 vs 训练慢预测快，并行 vs 串行</li>
+</ul>
+</li>
+<li>模型融合：模型融合有哪几种方法？<ul>
+<li>bagging（RF），boosting（GBDT），stacking</li>
+</ul>
+</li>
+<li>FM：FM的基本原理是什么？如何做embedding？<ul>
+<li>深度学习</li>
+</ul>
+</li>
+<li>介绍下梯度消失和梯度爆炸的概念，产生原因和如何解决？<ul>
+<li>梯度消失：sigmoid函数在链式求导的时候，梯度是不可能超过0.25的，同时w也比较小，因此层次越深梯度越来越小。解决方案：relu, batch normalization</li>
+<li>梯度爆炸：在网络比较深，权重初始值大的情况下，如果梯度大于1，链式求导很容易爆炸。解决方案：正则，lstm</li>
+</ul>
+</li>
+</ul>
+<h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><p>根据特点，选择基础知识题目。<br>熟悉数据库 -&gt; Hive题目<br>数学好 -&gt; 概率题<br>编程好 -&gt; ACM题</p>
+<ul>
+<li><p>Hive（SQL）<br>有一张表t_action<br>字段: user_id, item_id, action(1=click, 2=buy), timestamp<br>要求：求购买次数最多的top10用户最早的购买时间，按照购买次数排序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">select f2.user_id, f2.timestamp</div><div class="line">from</div><div class="line">(</div><div class="line">  select user_id, row_number() over (order by buy_cnt desc) as rnk</div><div class="line">  from</div><div class="line">  (</div><div class="line">    select user_id, count(1) as buy_cnt</div><div class="line">    from t_action</div><div class="line">    where action = 2</div><div class="line">    group by user_id</div><div class="line">  ) t</div><div class="line">  where rnk &lt;= 10</div><div class="line">) f1</div><div class="line">join</div><div class="line">(</div><div class="line">  select user_id, min(timestamp) as timestamp</div><div class="line">  from t_action</div><div class="line">  where action = 2</div><div class="line">  group by user_id</div><div class="line">) f2 on f1.user_id = f2.user_id</div><div class="line">order by f1.rnk asc</div></pre></td></tr></table></figure>
+<ul>
+<li>拓展：如果用户量巨大，order by全局排序时间过久怎么办？</li>
+<li>答案：分多个map来选出各map内的top10，在reduce里再汇总总排名top10.</li>
+</ul>
+</li>
+<li>概率题目1：token反拿问题<ul>
+<li>题目：某员工使用token登陆系统（配token图），不小心把token拿反了，但是输入里面的数字竟然成功登陆，问此情况的概率是多少？</li>
+<li>数字对应：1-1,2-2,5-5,6-9,8-8,9-6,0-0<br>总情况：10^6<br>正反相等情况：7^3<br>正确答案：7^3/10^6</li>
+</ul>
+</li>
+<li>概率题目2：最少晋级分数问题<ul>
+<li>题目：有8支球队打循环赛，打C（3,2）场比赛，赢3分，平1分，负0分，4支球队可以晋级，问最少多少分可以保证一定出线？</li>
+<li>5支球队得分相同，3支球队没有得分，此种情况下是未晋级的最大分值；<br>5支球队内部每支球队都2胜2负，此种情况得分大于4场全平，即（2×3&gt;4）；<br>未晋级的最大分值是3×3+ 2×3=15分，因此晋级的最少的分是16分。</li>
+</ul>
+</li>
+<li>概率题目3：三门问题</li>
+<li>概率题目4：有偏好生育问题</li>
+<li>ACM题目1：二分查找</li>
+<li>ACM题目2：两颗树合并</li>
+<li>ACM题目3：最长公共子序列 vs 最长公共子串</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/21/hive-param-tune/" rel="next" title="hive-param-tune">
+                <i class="fa fa-chevron-left"></i> hive-param-tune
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/27/ctr-recalibration/" rel="prev" title="ctr_recalibration">
+                ctr_recalibration <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Guo Xinpeng</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#流程"><span class="nav-number">1.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自我介绍"><span class="nav-number">2.</span> <span class="nav-text">自我介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目介绍"><span class="nav-number">3.</span> <span class="nav-text">项目介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础知识测试"><span class="nav-number">4.</span> <span class="nav-text">基础知识测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础知识"><span class="nav-number">5.</span> <span class="nav-text">基础知识</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guo Xinpeng</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
