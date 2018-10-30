@@ -20,7 +20,6 @@ vector('Paris') - vector('France') + vector('Italy') = vector('Rome')
 * LSTM：能更好的捕捉时序信息，解决long dependence的问题
 * Attention：通过注意力机制
 
-
 ##### word2vec的各种包
 * google word2vec：效果非常好，单机
 * gensim：经典的自然语言处理包，用的人很多，单机
