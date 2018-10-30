@@ -179,6 +179,18 @@ visualize(model,"/home/xpguo/gensim/word2vec/song_vector_v1_tf_board")
 tensorboard --logdir=/home/xpguo/gensim/word2vec/song_vector_v2_tf_board --port=6607
 ```
 
+* Tensorboard 可视化效果
+{% asset_img "tfboard.png" [tf-board] %}
+
+##### word2vec源码
+*　cbow-框架图
+{% asset_img "cbow-1.png" [cbow-1] %}
+
+* cbow-Hierarchical softmax
+{% asset_img "cbow-hs.png" [cbow-hs] %}
+
+* cbow-hs-hand
+{% asset_img "cbow-hs-hand.png" [cbow-hs-hand.png] %}
 
 ##### word2vec源码细节
 * 预计算sigmoid(x)，将[-6, 6]的区间划分成1000份来计算。
@@ -268,12 +280,11 @@ void SortVocab() {
 }
 ```
 * 初始化网络参数，首先要搞清楚网络是什么样子的：
-    * syn0: 存放从词典到第一层的参数，其实就是embedding_look_up表，模型去训练这个表，这个表就是word Embedding表。
-    * syn1: 存放从第一层到第二层的参数。
-    * syn1neg: 
-    * hs: 
+    * syn0: e(w), 向量映射表，最终看的结果
+    * syn1: theta(w, j), 存放hs的每个节点的参数
+    * syn1neg: theta for negtive sampling, 存放theta(u)
     * vocab_size:词典大小。
-    * layer1_size:第一层大小。
+    * layer1_size:第一层大小，即向量映射的维度
     * 末尾还会创建一棵哈弗曼树
  
 ```
@@ -321,7 +332,7 @@ void InitUnigramTable() {
   }
 }
 ```
-* 构建哈弗曼树，自底向上构建，code指的是，point指的是
+* 构建哈弗曼树，自底向上构建，code指的是huffman tree的编码，point指向对应词在词典中的位置
 ```
 // Create binary Huffman tree using the word counts
 // Frequent words will have short uniqe binary codes
@@ -390,4 +401,27 @@ void CreateBinaryTree() {
   free(parent_node);
 }
 ```
-* 
+* 训练模型
+{% asset_img "cbow-hs-2.png" [cbow-hs-2] %}
+
+```
+if (cw) {
+        for (c = 0; c < layer1_size; c++) neu1[c] /= cw;
+        // 如果分层softmax, theta(j: 2->l, w)作为tree的路径参数
+        if (hs) for (d = 0; d < vocab[word].codelen; d++) {
+          f = 0;
+          l2 = vocab[word].point[d] * layer1_size;
+          // Propagate hidden -> output
+          // 3.1 查表计算sigma(x(w)*theta)
+          for (c = 0; c < layer1_size; c++) f += neu1[c] * syn1[c + l2];
+          if (f <= -MAX_EXP) continue;
+          else if (f >= MAX_EXP) continue;
+          else f = expTable[(int)((f + MAX_EXP) * (EXP_TABLE_SIZE / MAX_EXP / 2))];
+          // 'g' is the gradient multiplied by the learning rate: 3.2 g = (1-dj-q) * eta
+          g = (1 - vocab[word].code[d] - f) * alpha;
+          // Propagate errors output -> hidden : 3.3 v = v + g*theta
+          for (c = 0; c < layer1_size; c++) neu1e[c] += g * syn1[c + l2];
+          // Learn weights hidden -> output: 3.4 theta = theta + g*x(w)
+          for (c = 0; c < layer1_size; c++) syn1[c + l2] += g * neu1[c];
+        }
+```
