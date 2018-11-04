@@ -1539,6 +1539,14 @@
 </li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">if (cw) &#123;</div><div class="line">        for (c = 0; c &lt; layer1_size; c++) neu1[c] /= cw;</div><div class="line">        // 如果分层softmax, theta(j: 2-&gt;l, w)作为tree的路径参数</div><div class="line">        if (hs) for (d = 0; d &lt; vocab[word].codelen; d++) &#123;</div><div class="line">          f = 0;</div><div class="line">          l2 = vocab[word].point[d] * layer1_size;</div><div class="line">          // Propagate hidden -&gt; output</div><div class="line">          // 3.1 查表计算sigma(x(w)*theta)</div><div class="line">          for (c = 0; c &lt; layer1_size; c++) f += neu1[c] * syn1[c + l2];</div><div class="line">          if (f &lt;= -MAX_EXP) continue;</div><div class="line">          else if (f &gt;= MAX_EXP) continue;</div><div class="line">          else f = expTable[(int)((f + MAX_EXP) * (EXP_TABLE_SIZE / MAX_EXP / 2))];</div><div class="line">          // &apos;g&apos; is the gradient multiplied by the learning rate: 3.2 g = (1-dj-q) * eta</div><div class="line">          g = (1 - vocab[word].code[d] - f) * alpha;</div><div class="line">          // Propagate errors output -&gt; hidden : 3.3 v = v + g*theta</div><div class="line">          for (c = 0; c &lt; layer1_size; c++) neu1e[c] += g * syn1[c + l2];</div><div class="line">          // Learn weights hidden -&gt; output: 3.4 theta = theta + g*x(w)</div><div class="line">          for (c = 0; c &lt; layer1_size; c++) syn1[c + l2] += g * neu1[c];</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<h4 id="建涛提出的几个问题"><a href="#建涛提出的几个问题" class="headerlink" title="建涛提出的几个问题"></a>建涛提出的几个问题</h4><ol>
+<li>skip-gram的实现和skip-gram的论文的区别</li>
+<li>ps如何设计</li>
+<li>如何让word有主题的特性（类似于lda）</li>
+<li>如何让word学到全局的特性</li>
+<li>如何加正则，效果好不好</li>
+</ol>
+
           
         
       

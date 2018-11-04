@@ -2,7 +2,244 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="10b2bf9c-1a3f-406f-96c9-ab48ee428e6e" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/02/feature-engineer/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/02/feature-engineer/զ%A6ڥ%E4%FE%F6+%B5%AB%C1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/05/lda/1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/05/lda/100.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/05/lda/101.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/05/lda/102.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/05/lda/103.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/05/lda/104.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/05/lda/105.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/05/lda/106.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/05/lda/2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/05/lda/201.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/05/lda/3.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/05/lda/301.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/05/lda/302.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/05/lda/4.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/05/lda/401.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/05/lda/402.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/05/lda/5.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/05/lda/501.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/05/lda/6.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/05/lda/601.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/05/lda/7.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/05/lda/8.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/05/lda/9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/05/lda/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/06/auc-n-logloss/1.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/06/auc-n-logloss/2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/06/auc-n-logloss/3.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/06/auc-n-logloss/4.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/06/auc-n-logloss/6.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/06/auc-n-logloss/7.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/06/auc-n-logloss/8.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/06/auc-n-logloss/9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/06/auc-n-logloss/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/10/logit-n-probit/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/10/logit-n-probit/logistic.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/10/logit-n-probit/logit-logistic-relation.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/10/logit-n-probit/logit.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/15/pr/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/24/ee-n-dqn/1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/24/ee-n-dqn/2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/24/ee-n-dqn/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/26/subway/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/10/28/xgboost-n-spark/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/11/17/spark-streaming/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/11/23/exploding-n-vanishing/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/11/27/MachineLearning-ZhouZhihua/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/12/07/ctr-smooth/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/12/13/dt/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/12/14/distributed-tf/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2017/12/15/kafka/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/01/05/tf-wnd/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/01/08/search/IDF.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/01/08/search/TF.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/01/08/search/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/01/15/edge-rank/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/01/16/bayes/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/03/14/cnn/alexNet.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/03/14/cnn/cnn002.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/03/14/cnn/cnn003.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/03/14/cnn/cnn004.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/03/14/cnn/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/03/14/cnn/lenet.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/03/14/cnn/logistic.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/03/19/hivemall/hivemall_1.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/03/19/hivemall/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/03/20/query-parse/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/03/24/MLR/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/03/24/dnn-embedding/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/04/02/elastic-search-md/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/06/13/word2vec/cbow-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/06/13/word2vec/cbow-hs-2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/06/13/word2vec/cbow-hs-code.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/06/13/word2vec/cbow-hs-hand.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/06/13/word2vec/cbow-hs-hand.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/06/13/word2vec/cbow-hs.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/06/13/word2vec/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/06/13/word2vec/tfboard.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/06/21/hive-param-tune/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/08/05/interview-questions/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/08/27/ctr-recalibration/%D5%F8%A51.1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/08/27/ctr-recalibration/%D5%F8%A52.2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/08/27/ctr-recalibration/%D5%F8%A53.3.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/08/27/ctr-recalibration/%D5%F8%A53.3.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/08/27/ctr-recalibration/%D5%F8%A54.4.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/08/27/ctr-recalibration/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/08/27/ctr-recalibration/图1.1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/08/27/ctr-recalibration/图2.2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/08/27/ctr-recalibration/图3.3.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/08/27/ctr-recalibration/图3.3.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/08/27/ctr-recalibration/图4.4.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/09/10/data-warehouse/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/09/27/dict-vs-bag-of-words/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/09/30/feature-yy-list/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/09/30/tf-serving/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/2018/10/17/ocpc/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/about/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/about/tmp.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/archives/2017/10/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/archives/2017/11/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/archives/2017/12/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/archives/2017/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/archives/2017/page/2/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/archives/2018/01/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/archives/2018/03/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/archives/2018/04/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/archives/2018/06/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/archives/2018/08/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/archives/2018/09/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/archives/2018/10/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/archives/2018/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/archives/2018/page/2/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/archives/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/archives/page/2/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/archives/page/3/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/archives/page/4/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/categories/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/categories/数据挖掘/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/categories/机器学习/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/css/main.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/algolia_logo.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/apple-touch-icon.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/avatar.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/cc-by-nc-nd.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/cc-by-nc-sa.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/cc-by-nc.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/cc-by-nd.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/cc-by-sa.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/cc-by.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/cc-zero.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/favicon-16x16.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/favicon-32x32.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/loading.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/logo.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/placeholder.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/quote-l.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/quote-r.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/searchicon.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/js/src/affix.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/js/src/algolia-search.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/js/src/bootstrap.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/js/src/exturl.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/js/src/hook-duoshuo.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/js/src/js.cookie.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/js/src/motion.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/js/src/post-details.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/js/src/schemes/pisces.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/js/src/scroll-cookie.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/js/src/scrollspy.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/js/src/utils.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/Han/dist/font/han-space.otf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/Han/dist/font/han-space.woff" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/Han/dist/font/han.otf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/Han/dist/font/han.woff" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/Han/dist/font/han.woff2" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/Han/dist/han.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/Han/dist/han.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/Han/dist/han.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/Han/dist/han.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/algolia-instant-search/instantsearch.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/algolia-instant-search/instantsearch.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/canvas-nest/canvas-nest.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/canvas-ribbon/canvas-ribbon.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/fancybox/source/blank.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/fancybox/source/fancybox_loading.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/fancybox/source/fancybox_loading@2x.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/fancybox/source/fancybox_overlay.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/fancybox/source/fancybox_sprite.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/fancybox/source/fancybox_sprite@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/fancybox/source/helpers/fancybox_buttons.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/fancybox/source/helpers/jquery.fancybox-buttons.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/fancybox/source/helpers/jquery.fancybox-buttons.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/fancybox/source/helpers/jquery.fancybox-media.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/fancybox/source/helpers/jquery.fancybox-thumbs.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/fancybox/source/helpers/jquery.fancybox-thumbs.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/fancybox/source/jquery.fancybox.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/fancybox/source/jquery.fancybox.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/fancybox/source/jquery.fancybox.pack.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/fastclick/LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/fastclick/README.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/fastclick/bower.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/fastclick/lib/fastclick.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/fastclick/lib/fastclick.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/font-awesome/HELP-US-OUT.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/font-awesome/bower.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/font-awesome/css/font-awesome.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/font-awesome/css/font-awesome.css.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/font-awesome/css/font-awesome.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/font-awesome/fonts/FontAwesome.otf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/font-awesome/fonts/fontawesome-webfont.eot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/font-awesome/fonts/fontawesome-webfont.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/font-awesome/fonts/fontawesome-webfont.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/font-awesome/fonts/fontawesome-webfont.woff" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/font-awesome/fonts/fontawesome-webfont.woff2" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/jquery/index.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/jquery_lazyload/CONTRIBUTING.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/jquery_lazyload/README.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/jquery_lazyload/bower.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/jquery_lazyload/jquery.lazyload.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/jquery_lazyload/jquery.scrollstop.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/pace/pace-theme-barber-shop.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/pace/pace-theme-big-counter.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/pace/pace-theme-bounce.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/pace/pace-theme-center-atom.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/pace/pace-theme-center-circle.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/pace/pace-theme-center-radar.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/pace/pace-theme-center-simple.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/pace/pace-theme-corner-indicator.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/pace/pace-theme-fill-left.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/pace/pace-theme-flash.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/pace/pace-theme-loading-bar.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/pace/pace-theme-mac-osx.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/pace/pace-theme-minimal.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/pace/pace.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/three/canvas_lines.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/three/canvas_sphere.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/three/three-waves.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/three/three.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/ua-parser-js/dist/ua-parser.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/ua-parser-js/dist/ua-parser.pack.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/velocity/bower.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/velocity/velocity.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/velocity/velocity.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/velocity/velocity.ui.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/lib/velocity/velocity.ui.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/page/2/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/page/3/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/page/4/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/tags/DNN/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/tags/ML/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/tags/Search/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/tags/数据挖掘/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/tags/机器学习/index.html" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.json" afterPath="$PROJECT_DIR$/db.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/_posts/word2vec.md" afterPath="$PROJECT_DIR$/source/_posts/word2vec.md" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,27 +250,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="tf-wnd.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/_posts/tf-wnd.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-            <state split_layout="FIRST">
-              <first_editor relative-caret-position="450">
-                <caret line="30" column="26" lean-forward="false" selection-start-line="30" selection-start-column="26" selection-end-line="30" selection-end-column="26" />
-                <folding />
-              </first_editor>
-              <second_editor>
-                <js_state />
-              </second_editor>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="word2vec.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/source/_posts/word2vec.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="225">
-                <caret line="407" column="55" lean-forward="false" selection-start-line="407" selection-start-column="55" selection-end-line="407" selection-end-column="55" />
+              <first_editor relative-caret-position="619">
+                <caret line="433" column="0" lean-forward="false" selection-start-line="433" selection-start-column="0" selection-end-line="433" selection-end-column="0" />
                 <folding />
               </first_editor>
               <second_editor>
@@ -128,7 +350,7 @@
       <file leaf-file-name="_config.yml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_config.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="426">
+            <state relative-caret-position="1230">
               <caret line="82" column="15" lean-forward="false" selection-start-line="82" selection-start-column="15" selection-end-line="82" selection-end-column="15" />
               <folding />
             </state>
@@ -139,7 +361,7 @@
         <entry file="file://$PROJECT_DIR$/source/_posts/search.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="185">
+              <first_editor relative-caret-position="690">
                 <caret line="46" column="4" lean-forward="false" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="4" />
                 <folding />
               </first_editor>
@@ -203,11 +425,11 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="1" />
-    <option name="y" value="19" />
-    <option name="width" value="1439" />
-    <option name="height" value="841" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="450" />
+    <option name="y" value="-17" />
+    <option name="width" value="1278" />
+    <option name="height" value="678" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -226,6 +448,7 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
@@ -238,7 +461,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -368,8 +590,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1456" height="876" extended-state="7" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -391,9 +612,9 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20949721" sideWeight="0.48720682" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16741072" sideWeight="0.48720682" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="FAQ Robot" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26217765" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1977612" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="MaxCompute Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -413,7 +634,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/source/_posts/auc-n-logloss/9.svg" />
     <entry file="file://$PROJECT_DIR$/source/_posts/auc-n-logloss/8.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -470,7 +690,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="570">
             <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -497,7 +716,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="270">
             <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -517,7 +735,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="240">
             <caret line="16" column="18" lean-forward="false" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -530,7 +747,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="-151">
             <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -543,7 +759,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="339">
             <caret line="224" column="7" lean-forward="false" selection-start-line="224" selection-start-column="7" selection-end-line="224" selection-end-column="7" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -556,7 +771,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="449">
             <caret line="73" column="5" lean-forward="false" selection-start-line="73" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -569,7 +783,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="255">
             <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -582,7 +795,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="105">
             <caret line="7" column="30" lean-forward="false" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -595,7 +807,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="105">
             <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -608,7 +819,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="135">
             <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -621,7 +831,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="90">
             <caret line="6" column="3" lean-forward="false" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -634,7 +843,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="240">
             <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -647,7 +855,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="240">
             <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -660,7 +867,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="180">
             <caret line="76" column="28" lean-forward="false" selection-start-line="76" selection-start-column="28" selection-end-line="76" selection-end-column="28" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -673,7 +879,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="375">
             <caret line="25" column="35" lean-forward="false" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -686,7 +891,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="540">
             <caret line="99" column="0" lean-forward="true" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -699,7 +903,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="1350">
             <caret line="90" column="30" lean-forward="false" selection-start-line="90" selection-start-column="30" selection-end-line="90" selection-end-column="30" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -712,7 +915,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="165">
             <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -725,7 +927,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="315">
             <caret line="21" column="70" lean-forward="false" selection-start-line="21" selection-start-column="70" selection-end-line="21" selection-end-column="70" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -738,7 +939,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="540">
             <caret line="36" column="26" lean-forward="false" selection-start-line="36" selection-start-column="26" selection-end-line="36" selection-end-column="26" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -751,7 +951,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="150">
             <caret line="10" column="3" lean-forward="false" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -764,7 +963,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="135">
             <caret line="9" column="37" lean-forward="false" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -777,7 +975,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="495">
             <caret line="33" column="1" lean-forward="false" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -790,7 +987,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="285">
             <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -803,7 +999,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="225">
             <caret line="15" column="14" lean-forward="false" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
-            <folding />
           </first_editor>
           <second_editor>
             <js_state />
@@ -878,7 +1073,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/_config.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="426">
+        <state relative-caret-position="1230">
           <caret line="82" column="15" lean-forward="false" selection-start-line="82" selection-start-column="15" selection-end-line="82" selection-end-column="15" />
           <folding />
         </state>
@@ -887,7 +1082,7 @@
     <entry file="file://$PROJECT_DIR$/source/_posts/search.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="185">
+          <first_editor relative-caret-position="690">
             <caret line="46" column="4" lean-forward="false" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="4" />
             <folding />
           </first_editor>
@@ -915,11 +1110,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/Consumer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/source/_posts/word2vec.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="225">
-            <caret line="407" column="55" lean-forward="false" selection-start-line="407" selection-start-column="55" selection-end-line="407" selection-end-column="55" />
+          <first_editor relative-caret-position="619">
+            <caret line="433" column="0" lean-forward="false" selection-start-line="433" selection-start-column="0" selection-end-line="433" selection-end-column="0" />
             <folding />
           </first_editor>
           <second_editor>
