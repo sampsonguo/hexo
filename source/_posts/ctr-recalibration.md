@@ -288,6 +288,13 @@ score = log_loss(y, y_p)
 * p' = a / (a + b/k) = 1 / (1+e^-wx-lnk) = 1 / e^-(wx+lnk)
 
 
+##### 举一个例子
+负样本采样10%
+校准回去 q = p / (10 - 9p)
+p: 模型预估的pCTR
+q: 真正要输出的ctr
+
+
 REF:
 https://tech.meituan.com/mt_dsp.html
 http://blog.csdn.net/lming_08/article/details/40214921

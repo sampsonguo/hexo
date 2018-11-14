@@ -424,11 +424,3 @@ if (cw) {
           for (c = 0; c < layer1_size; c++) syn1[c + l2] += g * neu1[c];
         }
 ```
-
-
-#### 建涛提出的几个问题
-1. skip-gram的实现和skip-gram的论文的区别
-2. ps如何设计
-3. 如何让word有主题的特性（类似于lda）
-4. 如何让word学到全局的特性
-5. 如何加正则，效果好不好
