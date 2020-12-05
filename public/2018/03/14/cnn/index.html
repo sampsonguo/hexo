@@ -90,7 +90,7 @@
 <meta property="og:image" content="https://sampsonguo.github.io/2018/03/14/cnn/cnn003.png">
 <meta property="og:image" content="https://sampsonguo.github.io/2018/03/14/cnn/lenet.png">
 <meta property="og:image" content="https://sampsonguo.github.io/2018/03/14/cnn/lenet.png">
-<meta property="og:updated_time" content="2018-03-19T02:52:49.297Z">
+<meta property="og:updated_time" content="2019-10-08T06:54:16.405Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="cnn">
 <meta name="twitter:description" content="Detect vertical/horizontal edgesCNN kernal below can be used for detecting vertical edges    1 0 -1     1 0 -1   1 0 -1    stride &amp;amp; padding   params values     input volume size W   stride S   pad">
@@ -415,22 +415,8 @@
 </ul>
 </li>
 </ul>
-<h4 id="AlexNet-1"><a href="#AlexNet-1" class="headerlink" title="AlexNet"></a>AlexNet</h4><blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>1be2ebd4ec9a7cfdbd6c6e6d48a5059b0bc4ede5</p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-<h4 id="VGGNet"><a href="#VGGNet" class="headerlink" title="VGGNet"></a>VGGNet</h4><h4 id="GoogleNet"><a href="#GoogleNet" class="headerlink" title="GoogleNet"></a>GoogleNet</h4><h4 id="ResNet"><a href="#ResNet" class="headerlink" title="ResNet"></a>ResNet</h4><h4 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h4><ul>
+<h4 id="AlexNet-1"><a href="#AlexNet-1" class="headerlink" title="AlexNet"></a>AlexNet</h4><h4 id="VGGNet"><a href="#VGGNet" class="headerlink" title="VGGNet"></a>VGGNet</h4><h4 id="GoogleNet"><a href="#GoogleNet" class="headerlink" title="GoogleNet"></a>GoogleNet</h4><h4 id="ResNet"><a href="#ResNet" class="headerlink" title="ResNet"></a>ResNet</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">import torchvision.models as models</div><div class="line">import torch</div><div class="line">import numpy as np</div><div class="line">from PIL import Image</div><div class="line">from torch.autograd import Variable</div><div class="line">from torchvision import transforms</div><div class="line"></div><div class="line">&quot;&quot;&quot; resnet.eval()</div><div class="line">Yes, it hurts the testing accuracy. If you use resnet.eval(), batch normalization layer uses running average/variance instead of mini-batch statistics. You can improve the performance when using resnet.eval() by changing the momentum coefficient in batch normalization layer.</div><div class="line">It is recommended to change nn.BatchNorm2d(16) to nn.BatchNorm2d(16, momentum=0.01). The default value of the momentum is 0.1.</div><div class="line">&quot;&quot;&quot;</div><div class="line">img_path=&quot;./dog.jpg&quot;</div><div class="line"></div><div class="line">image_transform = transforms.Compose([</div><div class="line">    transforms.Scale([224, 224]),</div><div class="line">    transforms.ToTensor(),</div><div class="line">    transforms.Normalize(mean = [ 0.485, 0.456, 0.406 ],</div><div class="line">                         std = [ 0.229, 0.224, 0.225 ]),</div><div class="line">])</div><div class="line"></div><div class="line">resnet = models.resnet152(pretrained=True)</div><div class="line">resnet = resnet.eval()</div><div class="line">img_vec = image_transform(Image.open(img_path).convert(&apos;RGB&apos;)).unsqueeze(0)</div><div class="line">img_vec = resnet(Variable(img_vec)).data.squeeze(0).cpu().numpy()</div><div class="line">np.savetxt(&quot;vec.txt&quot;,img_vec)</div></pre></td></tr></table></figure>
+<h4 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h4><ul>
 <li><a href="http://cs231n.github.io/convolutional-networks/" target="_blank" rel="external">http://cs231n.github.io/convolutional-networks/</a></li>
 </ul>
 
@@ -544,7 +530,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -621,7 +607,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

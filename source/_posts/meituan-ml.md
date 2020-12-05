@@ -4,8 +4,6 @@ date: 2018-11-22 10:29:13
 tags:
 ---
 
-
-
 * 线上线下指标一致性：t-test ( student-test )
 * 检验指标：AUC, logloss, TF/TN/FP/FN, acc, F1 score, F_alpha score, MAE, WMAE, RMSE, MAP, nDCG
 * 采样：加快训练速度，skip-above；交叉验证：时间侧hold-out
@@ -16,4 +14,3 @@ tags:
     * 类型 x 数值：类型内计算数值
     * 时间特征，空间特征
     * 过滤：类内部差异小，类间差异大
-* 
